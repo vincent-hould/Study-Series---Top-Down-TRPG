@@ -1,7 +1,6 @@
 using UnityEngine;
-using System.Collections;
 
-namespace TopDownTRRPG.BattleSystem.SelectionSystem
+namespace TopDownTRPG
 {
     public class SelectionManager : MonoBehaviour
     {

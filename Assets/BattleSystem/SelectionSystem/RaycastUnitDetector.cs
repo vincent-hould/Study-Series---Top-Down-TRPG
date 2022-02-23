@@ -1,8 +1,8 @@
 using UnityEngine;
 
-namespace TopDownTRRPG.BattleSystem.SelectionSystem
+namespace TopDownTRPG
 {
-    public class RaycastUnitDetector : MonoBehaviour
+    public class RaycastUnitDetector : MonoBehaviour, IUnitDetector
     {
         public GameObject FindUnit(Vector3 position)
         {

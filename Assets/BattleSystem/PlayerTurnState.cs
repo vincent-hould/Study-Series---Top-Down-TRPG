@@ -1,8 +1,7 @@
 using System.Collections;
 using UnityEngine;
-using TopDownTRRPG.BattleSystem.SelectionSystem;
 
-namespace TopDownTRRPG.BattleSystem
+namespace TopDownTRPG
 {
     public class PlayerTurnState : BaseState
     {

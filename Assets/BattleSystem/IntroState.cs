@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-namespace TopDownTRRPG.BattleSystem
+namespace TopDownTRPG
 {
     public class IntroState : BaseState
     {

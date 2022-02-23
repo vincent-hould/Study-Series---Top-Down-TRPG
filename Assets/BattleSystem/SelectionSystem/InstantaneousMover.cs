@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TopDownTRRPG.BattleSystem.SelectionSystem
+namespace TopDownTRPG
 {
     public class InstantaneousMover: MonoBehaviour, IMover
     {

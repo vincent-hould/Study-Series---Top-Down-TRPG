@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace TopDownTRRPG.BattleSystem
+namespace TopDownTRPG
 {
     public interface IMover
     {

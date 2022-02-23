@@ -1,16 +1,16 @@
 using UnityEngine;
 
-namespace TopDownTRRPG.BattleSystem.SelectionSystem
+namespace TopDownTRPG
 {
     public class Cursor : MonoBehaviour
     {
         public delegate void CursorSelection(Selection selection);
         public event CursorSelection OnCursorSelection;
 
-        private RaycastUnitDetector _unitDetector;
+        private IUnitDetector _unitDetector;
 
         private void Awake() {
-            _unitDetector = GetComponent<RaycastUnitDetector>();
+            _unitDetector = GetComponent<IUnitDetector>();
         }
 
         // Update is called once per frame

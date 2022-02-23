@@ -1,4 +1,4 @@
-namespace TopDownTRRPG.BattleSystem
+namespace TopDownTRPG
 {
     public class EnemyTurnState : BaseState
     {

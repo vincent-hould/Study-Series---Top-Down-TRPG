@@ -1,6 +1,6 @@
 using System.Collections;
 
-namespace TopDownTRRPG.BattleSystem
+namespace TopDownTRPG
 {
     public abstract class BaseState
     {
