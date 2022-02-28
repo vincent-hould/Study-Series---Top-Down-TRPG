@@ -9,7 +9,7 @@ namespace TopDownTRPG
 
         public override IEnumerator Enter()
         {
-            Debug.Log("Battle Start !");
+            _stateMachine.TitleText.Display("Let's Fight !", 2f);
             yield return new WaitForSeconds(2f);
 
             _stateMachine.SetState(new PlayerTurnState(_stateMachine));

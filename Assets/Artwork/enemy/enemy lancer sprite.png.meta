@@ -8,6 +8,24 @@ TextureImporter:
   - first:
       213: 6801130835533845109
     second: enemy lancer sprite_1
+  - first:
+      213: 329770646943331126
+    second: enemy lancer sprite_2
+  - first:
+      213: -3014219233823816266
+    second: enemy lancer sprite_3
+  - first:
+      213: 3347559217437746990
+    second: enemy lancer sprite_4
+  - first:
+      213: -4100228734976920727
+    second: enemy lancer sprite_5
+  - first:
+      213: 4819933720036834580
+    second: enemy lancer sprite_6
+  - first:
+      213: 3533970443407636068
+    second: enemy lancer sprite_7
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -146,6 +164,132 @@ TextureImporter:
       bones: []
       spriteID: 57253f20678726e50800000000000000
       internalID: 6801130835533845109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy lancer sprite_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633786cf7a4939400800000000000000
+      internalID: 329770646943331126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy lancer sprite_3
+      rect:
+        serializedVersion: 2
+        x: 48
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b508cca3975b26d0800000000000000
+      internalID: -3014219233823816266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy lancer sprite_4
+      rect:
+        serializedVersion: 2
+        x: 64
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2726f34f5be47e20800000000000000
+      internalID: 3347559217437746990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy lancer sprite_5
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 963f9d180bf0917c0800000000000000
+      internalID: -4100228734976920727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy lancer sprite_6
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41df8b76e28d3e240800000000000000
+      internalID: 4819933720036834580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: enemy lancer sprite_7
+      rect:
+        serializedVersion: 2
+        x: 112
+        y: 0
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 466ba0ef46f2b0130800000000000000
+      internalID: 3533970443407636068
       vertices: []
       indices: 
       edges: []

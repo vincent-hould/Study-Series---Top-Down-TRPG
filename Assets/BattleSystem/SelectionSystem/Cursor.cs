@@ -18,7 +18,7 @@ namespace TopDownTRPG
         {
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
             {
-                GameObject unit = _unitDetector.FindUnit(transform.position);
+                Unit unit = _unitDetector.FindUnit(transform.position);
                 Selection selection = new Selection(transform.position, unit);
                 if (OnCursorSelection != null)
                 {

@@ -4,6 +4,9 @@ namespace TopDownTRPG
 {
     public class BattleStateMachine : MonoBehaviour
     {
+        [SerializeField]
+        public TextManager TitleText;
+
         private BaseState _state;
 
         public void SetState(BaseState state)
