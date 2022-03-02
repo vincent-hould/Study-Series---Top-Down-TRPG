@@ -7,10 +7,10 @@ namespace TopDownTRPG
         public delegate void CursorSelection(Selection selection);
         public event CursorSelection OnCursorSelection;
 
-        private IUnitDetector _unitDetector;
+        private ISelectableDetector _selectableDetector;
 
         private void Awake() {
-            _unitDetector = GetComponent<IUnitDetector>();
+            _selectableDetector = GetComponent<ISelectableDetector>();
         }
 
         // Update is called once per frame
@@ -18,8 +18,8 @@ namespace TopDownTRPG
         {
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
             {
-                Unit unit = _unitDetector.FindUnit(transform.position);
-                Selection selection = new Selection(transform.position, unit);
+                ISelectable selectable = _selectableDetector.FindSelectable(transform.position);
+                Selection selection = new Selection(transform.position, selectable);
                 if (OnCursorSelection != null)
                 {
                     OnCursorSelection(selection);

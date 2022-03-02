@@ -28,24 +28,27 @@ namespace TopDownTRPG
 
         private void OnSelectionDone(Selection selection)
         {
-            if (_selectedUnit && selection.Unit && _selectedUnit != selection.Unit)
+            if (selection.Selectable != null && selection.Selectable.GetType() != typeof(Unit)) return;
+
+            Unit selectedUnit = (Unit) selection.Selectable;
+            if (_selectedUnit && selectedUnit && _selectedUnit != selectedUnit)
             {
-                _selectedUnit.Attack(selection.Unit);
+                _selectedUnit.Attack(selectedUnit);
                 _selectedUnit = null;
                 SelectionEventChannelSO.RaiseSelectionRequest();
             }
-            else if (_selectedUnit && !selection.Unit)
+            else if (_selectedUnit && !selectedUnit)
             {
                 _selectedUnit.OnMovementDone += OnMovementDone;
                 _selectedUnit.Move(selection.Position);
             }
-            else if (!_selectedUnit && selection.Unit)
+            else if (!_selectedUnit && selectedUnit)
             {
-                _selectedUnit = selection.Unit;
+                _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
                 SelectionEventChannelSO.RaiseSelectionRequest();
             }
-            else if (!_selectedUnit && !selection.Unit)
+            else if (!_selectedUnit && !selectedUnit)
             {
                 _stateMachine.SetState(new EnemyTurnState(_stateMachine));
             }

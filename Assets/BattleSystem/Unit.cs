@@ -1,14 +1,19 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace TopDownTRPG
 {
-    public class Unit : MonoBehaviour
+    public class Unit : MonoBehaviour, ISelectable
     {
         public delegate void MovementDone(Unit unit);
         public event MovementDone OnMovementDone;
 
         [SerializeField]
-        private bool _exhausted = false;
+        private bool Exhausted = false;
+        [SerializeField]
+        private int Health = 100;
+        [SerializeField]
+        private int Damage = 25;
 
         private IMover _mover;
         private Animator _animator;
@@ -27,27 +32,33 @@ namespace TopDownTRPG
 
         public void Die()
         {
+
             _animator.SetTrigger("die");
         }
 
-        public void ReceiveHit()
+        public void ReceiveHit(int damage)
         {
             _animator.SetTrigger("receiveHit");
+            Health = Mathf.Max(Health - damage, 0);
+            if (Health == 0)
+            {
+                Die();
+            }
         }
 
         public void Attack(Unit opponent)
         {
-            if (_exhausted) return;
+            if (Exhausted) return;
 
             _animator.SetBool("isSelected", false);
             _animator.SetTrigger("attack");
-            opponent.ReceiveHit();
+            opponent.ReceiveHit(Damage);
             Exhaust();
         }
 
         public void Move(Vector3 position)
         {
-            if (_exhausted) return;
+            if (Exhausted) return;
 
             _animator.SetBool("isSelected", false);
             _animator.SetBool("isWalking", true);
@@ -57,13 +68,13 @@ namespace TopDownTRPG
         private void Exhaust()
         {
             _animator.SetBool("isExhausted", true);
-            _exhausted = true;
+            Exhausted = true;
         }
 
         public void OnRefresh()
         {
             _animator.SetBool("isExhausted", false);
-            _exhausted = false;
+            Exhausted = false;
         }
 
         public void OnMoveDone()
