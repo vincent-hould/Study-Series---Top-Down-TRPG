@@ -46,7 +46,7 @@ namespace TopDownTRPG
             {
                 _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
-                SelectionEventChannelSO.RaiseSelectionRequest();
+                SelectionEventChannelSO.RaiseSelectionRequest(new MoveCursorConstraint());
             }
             else if (!_selectedUnit && !selectedUnit)
             {

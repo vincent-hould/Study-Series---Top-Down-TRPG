@@ -91,5 +91,10 @@ namespace TopDownTRPG
         {
             _animator.SetBool("isSelected", true);
         }
+
+        public bool CanBeSelected()
+        {
+            return !Exhausted;
+        }
     }
 }

@@ -12,16 +12,16 @@ namespace TopDownTRPG
             SelectionEventChannelSO.OnSelectionRequested += InitCursor;
         }
 
-        public void InitCursor()
+        public void InitCursor(CursorConstraint cursorConstraint)
         {
-            Cursor.SetActive(true);
+            Cursor.Enable(cursorConstraint);
             Cursor.OnCursorSelection += OnCursorSelection;
         }
 
         private void OnCursorSelection(Selection selection)
         {
             Cursor.OnCursorSelection -= OnCursorSelection;
-            Cursor.SetActive(false);
+            Cursor.Disable();
             SelectionEventChannelSO.RaiseSelectionDone(selection);
         }
     }

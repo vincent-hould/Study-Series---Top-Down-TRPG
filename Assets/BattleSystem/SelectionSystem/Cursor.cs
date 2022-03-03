@@ -8,28 +8,44 @@ namespace TopDownTRPG
         public event CursorSelection OnCursorSelection;
 
         private ISelectableDetector _selectableDetector;
+        private IMovementController _movementController;
+        private IMover _mover;
+
+        private CursorConstraint _cursorConstraint;
 
         private void Awake() {
             _selectableDetector = GetComponent<ISelectableDetector>();
+            _movementController = GetComponent<IMovementController>();
+            _mover = GetComponent<IMover>();
         }
 
         // Update is called once per frame
         private void Update()
         {
+            Vector3 movement = _movementController.GetMovement(_cursorConstraint);
+            _mover.Move(movement);
+
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
             {
                 ISelectable selectable = _selectableDetector.FindSelectable(transform.position);
                 Selection selection = new Selection(transform.position, selectable);
-                if (OnCursorSelection != null)
+                if (_cursorConstraint.CanSelect(selection) && OnCursorSelection != null)
                 {
                     OnCursorSelection(selection);
                 }
             }
         }
 
-        public void SetActive(bool value)
+        public void Enable(CursorConstraint cursorConstraint)
         {
-            gameObject.SetActive(value);
+            _cursorConstraint = cursorConstraint ?? new CursorConstraint();
+            gameObject.SetActive(true);
+        }
+
+        public void Disable()
+        {
+            _cursorConstraint = null;
+            gameObject.SetActive(false);
         }
     }
 }

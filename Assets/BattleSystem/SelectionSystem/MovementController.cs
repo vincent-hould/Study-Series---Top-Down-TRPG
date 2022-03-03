@@ -2,34 +2,28 @@ using UnityEngine;
 
 namespace TopDownTRPG
 {
-    public class MovementController : MonoBehaviour
+    public class MovementController : MonoBehaviour, IMovementController
     {
-        private IMover _mover;
-
-        private void Awake()
-        {
-            _mover = GetComponent<IMover>();
-        }
-
-        // Update is called once per frame
-        private void Update()
+        public Vector3 GetMovement(CursorConstraint cursorConstraint)
         {
             if (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow))
             {
-                _mover.Move(transform.position + Vector3.up);
+                return cursorConstraint.GetNextTile(transform.position, Vector3.up);
             }
             else if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
             {
-                _mover.Move(transform.position + Vector3.left);
+                return cursorConstraint.GetNextTile(transform.position, Vector3.left);
             }
             else if (Input.GetKeyDown(KeyCode.S) || Input.GetKeyDown(KeyCode.DownArrow))
             {
-                _mover.Move(transform.position + Vector3.down);
+                return cursorConstraint.GetNextTile(transform.position, Vector3.down);
             }
             else if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
             {
-                _mover.Move(transform.position + Vector3.right);
+                return cursorConstraint.GetNextTile(transform.position, Vector3.right);
             }
+
+            return transform.position;
         }
     }
 }
