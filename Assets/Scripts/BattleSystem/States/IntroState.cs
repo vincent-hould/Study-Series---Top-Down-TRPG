@@ -12,7 +12,7 @@ namespace TopDownTRPG
             _stateMachine.TitleText.Display("Let's Fight !", 2f);
             yield return new WaitForSeconds(2f);
 
-            _stateMachine.SetState(new PlayerTurnState(_stateMachine));
+            _stateMachine.SetState(_stateMachine.GetNextFactionState());
         }
     }
 }

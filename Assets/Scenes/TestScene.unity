@@ -837,8 +837,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353380730}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.530049, y: 0.40140933, z: 25.948263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1905947951}
@@ -911,7 +911,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5.75
+  orthographic size: 6
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3586,8 +3586,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1326804485}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.530049, y: 0.40140933, z: 25.948263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1307009534}
@@ -3606,6 +3606,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   TitleText: {fileID: 185671756}
+  Factions:
+  - {fileID: 11400000, guid: 342933ca4db45a044b1e6e6d3c059a9f, type: 2}
+  - {fileID: 11400000, guid: 183ac8ee02dcba446999f34d76b6c068, type: 2}
 --- !u!1 &1806648810
 GameObject:
   m_ObjectHideFlags: 0
@@ -3680,7 +3683,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1905947950}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 1.5, y: 0.5, z: 25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 353380731}
@@ -3800,21 +3803,25 @@ PrefabInstance:
       propertyPath: m_Size.y
       value: 0.9
       objectReference: {fileID: 0}
+    - target: {fileID: 5028708070810197320, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
+      propertyPath: Faction
+      value: 
+      objectReference: {fileID: 11400000, guid: 183ac8ee02dcba446999f34d76b6c068, type: 2}
     - target: {fileID: 6750753513329555857, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6750753513329555857, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1.5300491
+      value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6750753513329555857, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.4014094
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 6750753513329555857, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.948263
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 6750753513329555857, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3901,6 +3908,10 @@ PrefabInstance:
       propertyPath: Slider
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4265360530137282000, guid: f1d1c5282aeceb64180d5017c31cb7c1, type: 3}
+      propertyPath: Faction
+      value: 
+      objectReference: {fileID: 11400000, guid: 342933ca4db45a044b1e6e6d3c059a9f, type: 2}
     - target: {fileID: 5904813615154687990, guid: f1d1c5282aeceb64180d5017c31cb7c1, type: 3}
       propertyPath: m_DynamicPixelsPerUnit
       value: 16
@@ -3963,15 +3974,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8545742903086688886, guid: f1d1c5282aeceb64180d5017c31cb7c1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 25.948263
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 8545742903086688886, guid: f1d1c5282aeceb64180d5017c31cb7c1, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.530049
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8545742903086688886, guid: f1d1c5282aeceb64180d5017c31cb7c1, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.5985906
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8924468439584609682, guid: f1d1c5282aeceb64180d5017c31cb7c1, type: 3}
       propertyPath: m_Size.x

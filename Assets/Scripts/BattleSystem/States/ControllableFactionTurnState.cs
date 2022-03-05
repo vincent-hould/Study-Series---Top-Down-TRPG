@@ -3,19 +3,23 @@ using UnityEngine;
 
 namespace TopDownTRPG
 {
-    public class PlayerTurnState : BaseState
+    public class ControllableFactionTurnState : BaseState
     {
         private Unit _selectedUnit;
+        private Faction _faction;
 
-        public PlayerTurnState(BattleStateMachine stateMachine) : base(stateMachine) { }
+        public ControllableFactionTurnState(BattleStateMachine stateMachine, Faction faction) : base(stateMachine)
+        {
+            _faction = faction;
+        }
 
         public override IEnumerator Enter()
         {
-            _stateMachine.TitleText.Display("Player Turn", 2f);
+            _stateMachine.TitleText.Display(_faction.Name + " Turn", 2f);
             yield return new WaitForSeconds(2f);
             _selectedUnit = null;
             SelectionEventChannelSO.OnSelectionDone += OnSelectionDone;
-            SelectionEventChannelSO.RaiseSelectionRequest();
+            SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
             yield break;
         }
 
@@ -30,27 +34,31 @@ namespace TopDownTRPG
         {
             if (selection.Selectable != null && selection.Selectable.GetType() != typeof(Unit)) return;
 
-            Unit selectedUnit = (Unit) selection.Selectable;
+            Unit selectedUnit = (Unit)selection.Selectable;
             if (_selectedUnit && selectedUnit && _selectedUnit != selectedUnit)
             {
+                // TODO Select attack target
                 _selectedUnit.Attack(selectedUnit);
                 _selectedUnit = null;
-                SelectionEventChannelSO.RaiseSelectionRequest();
+                SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
             }
             else if (_selectedUnit && !selectedUnit)
             {
                 _selectedUnit.OnMovementDone += OnMovementDone;
                 _selectedUnit.Move(selection.Position);
             }
-            else if (!_selectedUnit && selectedUnit)
+            else if (!_selectedUnit && selectedUnit && selectedUnit.Faction == _faction)
             {
                 _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
-                SelectionEventChannelSO.RaiseSelectionRequest(new MoveCursorConstraint());
+                CursorConstraint cursorConstraint = _selectedUnit.HasMoved
+                    ? new AttackCursorConstraint(_selectedUnit) as CursorConstraint
+                    : new MoveCursorConstraint(_selectedUnit) as CursorConstraint;
+                SelectionEventChannelSO.RaiseSelectionRequest(cursorConstraint);
             }
             else if (!_selectedUnit && !selectedUnit)
             {
-                _stateMachine.SetState(new EnemyTurnState(_stateMachine));
+                _stateMachine.SetState(_stateMachine.GetNextFactionState());
             }
         }
 
@@ -58,7 +66,7 @@ namespace TopDownTRPG
         {
             unit.OnMovementDone -= OnMovementDone;
             _selectedUnit = null;
-            SelectionEventChannelSO.RaiseSelectionRequest();
+            SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
         }
     }
 }

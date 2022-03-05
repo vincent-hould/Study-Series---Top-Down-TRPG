@@ -8,6 +8,12 @@ namespace TopDownTRPG
         public delegate void MovementDone(Unit unit);
         public event MovementDone OnMovementDone;
 
+        public int MovementRange = 4;
+
+        public Faction Faction;
+
+        public bool HasMoved = false;
+
         [SerializeField]
         private bool Exhausted = false;
         [SerializeField]
@@ -75,12 +81,13 @@ namespace TopDownTRPG
         {
             _animator.SetBool("isExhausted", false);
             Exhausted = false;
+            HasMoved = false;
         }
 
         public void OnMoveDone()
         {
             _animator.SetBool("isWalking", false);
-            Exhaust();
+            HasMoved = true;
             if (OnMovementDone != null)
             {
                 OnMovementDone(this);

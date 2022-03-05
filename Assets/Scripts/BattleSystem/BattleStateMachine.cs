@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TopDownTRPG
@@ -6,8 +7,11 @@ namespace TopDownTRPG
     {
         [SerializeField]
         public TextManager TitleText;
+        [SerializeField]
+        private List<Faction> Factions;
 
         private BaseState _state;
+        private int _factionIndex = -1;
 
         public void SetState(BaseState state)
         {
@@ -22,6 +26,16 @@ namespace TopDownTRPG
             {
                 StartCoroutine(_state.Enter());
             }
+        }
+
+        public BaseState GetNextFactionState()
+        {
+            int factionCount = Factions.Count;
+            int nextIndex = ++_factionIndex < factionCount ? _factionIndex : 0;
+            Faction nextFaction = Factions[nextIndex];
+            return nextFaction.Controllable 
+                ? new ControllableFactionTurnState(this, nextFaction) as BaseState
+                : new AIFactionTurnState(this, nextFaction) as BaseState;
         }
 
         private void Start()
