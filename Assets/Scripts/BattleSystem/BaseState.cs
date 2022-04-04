@@ -20,5 +20,20 @@ namespace TopDownTRPG
         {
             yield break;
         }
+
+        public virtual IEnumerator Attack()
+        {
+            yield break;
+        }
+
+        public virtual IEnumerator Move()
+        {
+            yield break;
+        }
+
+        public virtual IEnumerator EndTurn()
+        {
+            yield break;
+        }
     }
 }

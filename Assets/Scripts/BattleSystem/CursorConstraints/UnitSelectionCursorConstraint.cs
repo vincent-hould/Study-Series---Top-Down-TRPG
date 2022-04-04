@@ -1,3 +1,5 @@
+using UnityEngine;
+using System.Collections.Generic;
 
 namespace TopDownTRPG
 {
@@ -16,6 +18,11 @@ namespace TopDownTRPG
 
             Unit target = (Unit) selection.Selectable;
             return target.Faction == _faction;
+        }
+
+        public override List<Vector3> GetAllowedTiles()
+        {
+            return new List<Vector3>();
         }
     }
 }

@@ -8,10 +8,17 @@ namespace TopDownTRPG
         [SerializeField]
         public TextManager TitleText;
         [SerializeField]
+        public GameObject ContextualMenuPanel;
+        [SerializeField]
         private List<Faction> Factions;
 
         private BaseState _state;
         private int _factionIndex = -1;
+
+        private void Start()
+        {
+            SetState(new IntroState(this));
+        }
 
         public void SetState(BaseState state)
         {
@@ -38,9 +45,31 @@ namespace TopDownTRPG
                 : new AIFactionTurnState(this, nextFaction) as BaseState;
         }
 
-        private void Start()
+        public void DisplayMenu(Vector3 position)
         {
-            SetState(new IntroState(this));
+            var menuPosition = position + Vector3.right * 2;
+            ContextualMenuPanel.SetActive(true);
+            ContextualMenuPanel.transform.position = Camera.main.WorldToScreenPoint(menuPosition);
+        }
+
+        public void HideMenu()
+        {
+            ContextualMenuPanel.SetActive(false);
+        }
+        
+        public void Attack()
+        {
+            StartCoroutine(_state.Attack());
+        }
+
+        public void Move()
+        {
+            StartCoroutine(_state.Move());
+        }
+
+        public void EndTurn()
+        {
+            StartCoroutine(_state.EndTurn());
         }
     }
 }

@@ -37,7 +37,6 @@ namespace TopDownTRPG
             Unit selectedUnit = (Unit)selection.Selectable;
             if (_selectedUnit && selectedUnit && _selectedUnit != selectedUnit)
             {
-                // TODO Select attack target
                 _selectedUnit.Attack(selectedUnit);
                 _selectedUnit = null;
                 SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
@@ -51,14 +50,11 @@ namespace TopDownTRPG
             {
                 _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
-                CursorConstraint cursorConstraint = _selectedUnit.HasMoved
-                    ? new AttackCursorConstraint(_selectedUnit) as CursorConstraint
-                    : new MoveCursorConstraint(_selectedUnit) as CursorConstraint;
-                SelectionEventChannelSO.RaiseSelectionRequest(cursorConstraint);
+                _stateMachine.DisplayMenu(_selectedUnit.transform.position);
             }
             else if (!_selectedUnit && !selectedUnit)
             {
-                _stateMachine.SetState(_stateMachine.GetNextFactionState());
+                _stateMachine.DisplayMenu(selection.Position);
             }
         }
 
@@ -67,6 +63,27 @@ namespace TopDownTRPG
             unit.OnMovementDone -= OnMovementDone;
             _selectedUnit = null;
             SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
+        }
+
+        public override IEnumerator Attack()
+        {
+            SelectionEventChannelSO.RaiseSelectionRequest(new AttackCursorConstraint(_selectedUnit));
+            _stateMachine.HideMenu();
+            yield break;
+        }
+
+        public override IEnumerator Move()
+        {
+            SelectionEventChannelSO.RaiseSelectionRequest(new MoveCursorConstraint(_selectedUnit));
+            _stateMachine.HideMenu();
+            yield break;
+        }
+
+        public override IEnumerator EndTurn()
+        {
+            _stateMachine.SetState(_stateMachine.GetNextFactionState());
+            _stateMachine.HideMenu();
+            yield break;
         }
     }
 }

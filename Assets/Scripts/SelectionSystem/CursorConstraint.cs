@@ -1,8 +1,9 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 namespace TopDownTRPG
 {
-    public class CursorConstraint
+    public abstract class CursorConstraint
     {
         public virtual bool CanSelect(Selection selection)
         {
@@ -13,5 +14,7 @@ namespace TopDownTRPG
         {
             return position + direction;
         }
+
+        public abstract List<Vector3> GetAllowedTiles();
     }
 }

@@ -38,7 +38,7 @@ namespace TopDownTRPG
 
         public void Enable(CursorConstraint cursorConstraint)
         {
-            _cursorConstraint = cursorConstraint ?? new CursorConstraint();
+            _cursorConstraint = cursorConstraint;
             gameObject.SetActive(true);
         }
 
