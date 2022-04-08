@@ -7,14 +7,12 @@ namespace TopDownTRPG
         public delegate void CursorSelection(Selection selection);
         public event CursorSelection OnCursorSelection;
 
-        private ISelectableDetector _selectableDetector;
         private IMovementController _movementController;
         private IMover _mover;
 
         private CursorConstraint _cursorConstraint;
 
         private void Awake() {
-            _selectableDetector = GetComponent<ISelectableDetector>();
             _movementController = GetComponent<IMovementController>();
             _mover = GetComponent<IMover>();
         }
@@ -27,7 +25,7 @@ namespace TopDownTRPG
 
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
             {
-                ISelectable selectable = _selectableDetector.FindSelectable(transform.position);
+                ISelectable selectable = GridManager.Instance.FindSelectable(transform.position);
                 Selection selection = new Selection(transform.position, selectable);
                 if (_cursorConstraint.CanSelect(selection) && OnCursorSelection != null)
                 {

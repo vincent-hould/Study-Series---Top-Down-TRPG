@@ -29,13 +29,7 @@ namespace TopDownTRPG
 
         public override List<Vector3> GetAllowedTiles()
         {
-            var tiles = new List<Vector3>();
-            Vector3 attackerPosition = _attacker.transform.position;
-            tiles.Add(attackerPosition + Vector3.up);
-            tiles.Add(attackerPosition + Vector3.down);
-            tiles.Add(attackerPosition + Vector3.left);
-            tiles.Add(attackerPosition + Vector3.right);
-            return tiles;
+            return GridManager.Instance.GetTilesInRange(_attacker.transform.position, 1, false);
         }
     }
 }
