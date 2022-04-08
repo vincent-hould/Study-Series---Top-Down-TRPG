@@ -6,10 +6,6 @@ namespace TopDownTRPG
     public class BattleStateMachine : MonoBehaviour
     {
         [SerializeField]
-        public TextManager TitleText;
-        [SerializeField]
-        public GameObject ContextualMenuPanel;
-        [SerializeField]
         private List<Faction> Factions;
 
         private BaseState _state;
@@ -45,18 +41,6 @@ namespace TopDownTRPG
                 : new AIFactionTurnState(this, nextFaction) as BaseState;
         }
 
-        public void DisplayMenu(Vector3 position)
-        {
-            var menuPosition = position + Vector3.right * 2;
-            ContextualMenuPanel.SetActive(true);
-            ContextualMenuPanel.transform.position = Camera.main.WorldToScreenPoint(menuPosition);
-        }
-
-        public void HideMenu()
-        {
-            ContextualMenuPanel.SetActive(false);
-        }
-        
         public void Attack()
         {
             StartCoroutine(_state.Attack());

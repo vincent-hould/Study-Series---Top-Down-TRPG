@@ -9,7 +9,7 @@ namespace TopDownTRPG
 
         public override IEnumerator Enter()
         {
-            _stateMachine.TitleText.Display("Let's Fight !", 2f);
+            UIEventChannelSO.RaiseHeaderTextRequest("Let's Fight !", 2f);
             yield return new WaitForSeconds(2f);
 
             _stateMachine.SetState(_stateMachine.GetNextFactionState());

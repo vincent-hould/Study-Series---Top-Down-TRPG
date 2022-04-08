@@ -15,7 +15,7 @@ namespace TopDownTRPG
 
         public override IEnumerator Enter()
         {
-            _stateMachine.TitleText.Display(_faction.Name + " Turn", 2f);
+            UIEventChannelSO.RaiseHeaderTextRequest(_faction.Name + " Turn", 2f);
             yield return new WaitForSeconds(2f);
             _selectedUnit = null;
             SelectionEventChannelSO.OnSelectionDone += OnSelectionDone;
@@ -50,11 +50,11 @@ namespace TopDownTRPG
             {
                 _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
-                _stateMachine.DisplayMenu(_selectedUnit.transform.position);
+                UIEventChannelSO.RaiseContextualMenuDisplayRequest(_selectedUnit.transform.position);
             }
             else if (!_selectedUnit && !selectedUnit)
             {
-                _stateMachine.DisplayMenu(selection.Position);
+                UIEventChannelSO.RaiseContextualMenuDisplayRequest(selection.Position);
             }
         }
 
@@ -68,21 +68,21 @@ namespace TopDownTRPG
         public override IEnumerator Attack()
         {
             SelectionEventChannelSO.RaiseSelectionRequest(new AttackCursorConstraint(_selectedUnit));
-            _stateMachine.HideMenu();
+            UIEventChannelSO.RaiseContextualMenuHideRequest();
             yield break;
         }
 
         public override IEnumerator Move()
         {
             SelectionEventChannelSO.RaiseSelectionRequest(new MoveCursorConstraint(_selectedUnit));
-            _stateMachine.HideMenu();
+            UIEventChannelSO.RaiseContextualMenuHideRequest();
             yield break;
         }
 
         public override IEnumerator EndTurn()
         {
             _stateMachine.SetState(_stateMachine.GetNextFactionState());
-            _stateMachine.HideMenu();
+            UIEventChannelSO.RaiseContextualMenuHideRequest();
             yield break;
         }
     }

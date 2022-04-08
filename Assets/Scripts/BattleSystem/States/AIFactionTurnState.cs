@@ -14,7 +14,7 @@ namespace TopDownTRPG
 
         public override IEnumerator Enter()
         {
-            _stateMachine.TitleText.Display(_faction.Name + " Turn", 2f);
+            UIEventChannelSO.RaiseHeaderTextRequest(_faction.Name + " Turn", 2f);
             yield return new WaitForSeconds(4f);
             _stateMachine.SetState(_stateMachine.GetNextFactionState());
         }
