@@ -11,6 +11,20 @@ namespace TopDownTRPG
         private BaseState _state;
         private int _factionIndex = -1;
 
+        private void Awake()
+        {
+            BattleEventChannelSO.OnAttackRequested += Attack;
+            BattleEventChannelSO.OnMoveRequested += Move;
+            BattleEventChannelSO.OnEndTurnRequested += EndTurn;
+        }
+
+        private void OnDestroy()
+        {
+            BattleEventChannelSO.OnAttackRequested -= Attack;
+            BattleEventChannelSO.OnMoveRequested -= Move;
+            BattleEventChannelSO.OnEndTurnRequested -= EndTurn;
+        }
+
         private void Start()
         {
             SetState(new IntroState(this));
@@ -41,17 +55,17 @@ namespace TopDownTRPG
                 : new AIFactionTurnState(this, nextFaction) as BaseState;
         }
 
-        public void Attack()
+        private void Attack()
         {
             StartCoroutine(_state.Attack());
         }
 
-        public void Move()
+        private void Move()
         {
             StartCoroutine(_state.Move());
         }
 
-        public void EndTurn()
+        private void EndTurn()
         {
             StartCoroutine(_state.EndTurn());
         }

@@ -15,6 +15,11 @@ namespace TopDownTRPG
             SelectionEventChannelSO.OnSelectionRequested += InitCursor;
         }
 
+        private void OnDestroy()
+        {
+            SelectionEventChannelSO.OnSelectionRequested -= InitCursor;
+        }
+
         public void InitCursor(CursorConstraint cursorConstraint)
         {
             SelectionZoneHighlighter.Highlight(cursorConstraint);

@@ -30,6 +30,11 @@ namespace TopDownTRPG
             BattleEventChannelSO.OnUnitRefreshed += OnRefresh;
         }
 
+        private void OnDestroy()
+        {
+            BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
+        }
+
         public void Destroy()
         {
             Destroy(gameObject);

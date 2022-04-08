@@ -8,26 +8,32 @@ namespace TopDownTRPG
     {
         [SerializeField]
         private TMP_Text HeaderText;
-        [SerializeField]
-        private GameObject ContextualMenuPanel;
+
+        private BattleMenuManager battleMenuManager;
 
         private void Awake()
         {
+            battleMenuManager = GetComponent<BattleMenuManager>();
             UIEventChannelSO.OnContextualMenuDisplayRequested += DisplayMenu;
             UIEventChannelSO.OnContextualMenuHideRequested += HideMenu;
             UIEventChannelSO.OnHeaderTextRequested += DisplayHeader;
         }
 
+        private void OnDestroy()
+        {
+            UIEventChannelSO.OnContextualMenuDisplayRequested -= DisplayMenu;
+            UIEventChannelSO.OnContextualMenuHideRequested -= HideMenu;
+            UIEventChannelSO.OnHeaderTextRequested -= DisplayHeader;
+        }
+
         private void DisplayMenu(Vector3 position)
         {
-            var menuPosition = position + Vector3.right * 2;
-            ContextualMenuPanel.SetActive(true);
-            ContextualMenuPanel.transform.position = Camera.main.WorldToScreenPoint(menuPosition);
+            battleMenuManager.DisplayMenu(position);
         }
 
         private void HideMenu()
         {
-            ContextualMenuPanel.SetActive(false);
+            battleMenuManager.HideMenu();
         }
 
         private void DisplayHeader(string msg, float duration = 0f)
