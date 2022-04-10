@@ -5,7 +5,6 @@ namespace TopDownTRPG
     public class LinearMover : MonoBehaviour, IMover
     {
         private Unit _unit;
-
         private bool _isMoving = false;
         private Vector3 _destination;
 

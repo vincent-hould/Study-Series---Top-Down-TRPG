@@ -14,7 +14,8 @@ namespace TopDownTRPG
 
         public override bool CanSelect(Selection selection)
         {
-            if (selection.Selectable == null || selection.Selectable.GetType() != typeof(Unit)) return true;
+            if (selection.Selectable == null || selection.Selectable.GetType() != typeof(Unit))
+                return true;
 
             Unit target = (Unit) selection.Selectable;
             return target.Faction == _faction;

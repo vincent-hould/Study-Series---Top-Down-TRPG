@@ -12,17 +12,13 @@ namespace TopDownTRPG
         public static void RaiseSelectionRequest(CursorConstraint cursorConstraint = null)
         {
             if (OnSelectionRequested != null)
-            {
                 OnSelectionRequested(cursorConstraint);
-            }
         }
 
         public static void RaiseSelectionDone(Selection selection)
         {
             if (OnSelectionDone != null)
-            {
                 OnSelectionDone(selection);
-            }
         }
     }
 }

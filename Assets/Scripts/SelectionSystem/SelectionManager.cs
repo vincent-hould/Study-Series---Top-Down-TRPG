@@ -4,8 +4,7 @@ namespace TopDownTRPG
 {
     public class SelectionManager : MonoBehaviour
     {
-        [SerializeField]
-        private Cursor Cursor;
+        [SerializeField] private Cursor Cursor;
 
         public ISelectionZoneHighlighter SelectionZoneHighlighter;
 

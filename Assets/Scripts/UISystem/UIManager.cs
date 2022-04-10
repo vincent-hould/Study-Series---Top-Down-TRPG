@@ -6,8 +6,7 @@ namespace TopDownTRPG
 {
     public class UIManager : MonoBehaviour
     {
-        [SerializeField]
-        private TMP_Text HeaderText;
+        [SerializeField] private TMP_Text HeaderText;
 
         private BattleMenuManager battleMenuManager;
 
@@ -26,23 +25,18 @@ namespace TopDownTRPG
             UIEventChannelSO.OnHeaderTextRequested -= DisplayHeader;
         }
 
-        private void DisplayMenu(Vector3 position)
+        private void DisplayMenu(Vector3 position, bool canAttack, bool canMove)
         {
-            battleMenuManager.DisplayMenu(position);
+            battleMenuManager.DisplayMenu(position, canAttack, canMove);
         }
 
-        private void HideMenu()
-        {
-            battleMenuManager.HideMenu();
-        }
+        private void HideMenu() => battleMenuManager.HideMenu();
 
         private void DisplayHeader(string msg, float duration = 0f)
         {
             HeaderText.text = msg;
             if (duration > 0f)
-            {
                 StartCoroutine(EraseAfterSeconds(duration));
-            }
         }
 
         private IEnumerator EraseAfterSeconds(float seconds)

@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!687078895 &4343727234628468602
+SpriteAtlas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: WorldSpriteAtlas
+  m_EditorData:
+    serializedVersion: 2
+    textureSettings:
+      serializedVersion: 2
+      anisoLevel: 1
+      compressionQuality: 50
+      maxTextureSize: 2048
+      textureCompression: 0
+      filterMode: 0
+      generateMipMaps: 0
+      readable: 0
+      crunchedCompression: 0
+      sRGB: 1
+    platformSettings:
+    - serializedVersion: 3
+      m_BuildTarget: DefaultTexturePlatform
+      m_MaxTextureSize: 2048
+      m_ResizeAlgorithm: 0
+      m_TextureFormat: -1
+      m_TextureCompression: 0
+      m_CompressionQuality: 50
+      m_CrunchedCompression: 0
+      m_AllowsAlphaSplitting: 0
+      m_Overridden: 0
+      m_AndroidETC2FallbackOverride: 0
+      m_ForceMaximumCompressionQuality_BC6H_BC7: 0
+    packingSettings:
+      serializedVersion: 2
+      padding: 2
+      blockOffset: 1
+      allowAlphaSplitting: 0
+      enableRotation: 1
+      enableTightPacking: 1
+    secondaryTextureSettings: {}
+    variantMultiplier: 1
+    packables:
+    - {fileID: 2800000, guid: 8c394f7276e07fd4b88f1eefc3c85a46, type: 3}
+    - {fileID: 2800000, guid: e35ddd1c374413643bc9ac1902034ace, type: 3}
+    - {fileID: 2800000, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+    - {fileID: 2800000, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+    totalSpriteSurfaceArea: 5632
+    bindAsDefault: 1
+    isAtlasV2: 0
+    cachedData: {fileID: 0}
+  m_MasterAtlas: {fileID: 0}
+  m_PackedSprites:
+  - {fileID: -6491461309584986412, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: 2979917339749174118, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: 7841793298025987587, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: -9016697843356391693, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: -891498161714637092, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: 8849595431412978787, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: 7388030083033072838, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: -4446121533892960147, guid: a8aa07519016d0a43b12b23a78e6fdc2, type: 3}
+  - {fileID: 7030165911473553323, guid: 8c394f7276e07fd4b88f1eefc3c85a46, type: 3}
+  - {fileID: -2643130155165284130, guid: 8c394f7276e07fd4b88f1eefc3c85a46, type: 3}
+  - {fileID: 7755311879036417944, guid: 8c394f7276e07fd4b88f1eefc3c85a46, type: 3}
+  - {fileID: 3347559217437746990, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: -4100228734976920727, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: 4819933720036834580, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: 3533970443407636068, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: 3776822988961991875, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: 6801130835533845109, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: 329770646943331126, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: -3014219233823816266, guid: 5db8fc93b3572bc42a7adb085966e32d, type: 3}
+  - {fileID: -4750761433519615375, guid: e35ddd1c374413643bc9ac1902034ace, type: 3}
+  - {fileID: -3340349168363038409, guid: e35ddd1c374413643bc9ac1902034ace, type: 3}
+  - {fileID: -8894989074114120652, guid: e35ddd1c374413643bc9ac1902034ace, type: 3}
+  m_PackedSpriteNamesToIndex:
+  - ally lancer sprite_0
+  - ally lancer sprite_1
+  - ally lancer sprite_2
+  - ally lancer sprite_3
+  - ally lancer sprite_4
+  - ally lancer sprite_5
+  - ally lancer sprite_6
+  - ally lancer sprite_7
+  - test tileset_0
+  - test tileset_1
+  - test tileset_2
+  - enemy lancer sprite_4
+  - enemy lancer sprite_5
+  - enemy lancer sprite_6
+  - enemy lancer sprite_7
+  - enemy lancer sprite_0
+  - enemy lancer sprite_1
+  - enemy lancer sprite_2
+  - enemy lancer sprite_3
+  - Cursor_0
+  - Cursor_1
+  - Cursor_2
+  m_RenderDataMap: {}
+  m_Tag: WorldSpriteAtlas
+  m_IsVariant: 0

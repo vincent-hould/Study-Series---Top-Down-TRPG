@@ -5,8 +5,7 @@ namespace TopDownTRPG
 {
     public class BattleStateMachine : MonoBehaviour
     {
-        [SerializeField]
-        private List<Faction> Factions;
+        [SerializeField] private List<Faction> Factions;
 
         private BaseState _state;
         private int _factionIndex = -1;
@@ -33,16 +32,11 @@ namespace TopDownTRPG
         public void SetState(BaseState state)
         {
             if (_state != null)
-            {
                 StartCoroutine(_state.Leave());
-            }
 
             _state = state;
-
             if (_state != null)
-            {
                 StartCoroutine(_state.Enter());
-            }
         }
 
         public BaseState GetNextFactionState()
@@ -55,19 +49,10 @@ namespace TopDownTRPG
                 : new AIFactionTurnState(this, nextFaction) as BaseState;
         }
 
-        private void Attack()
-        {
-            StartCoroutine(_state.Attack());
-        }
+        private void Attack() => StartCoroutine(_state.Attack());
 
-        private void Move()
-        {
-            StartCoroutine(_state.Move());
-        }
+        private void Move() => StartCoroutine(_state.Move());
 
-        private void EndTurn()
-        {
-            StartCoroutine(_state.EndTurn());
-        }
+        private void EndTurn() => StartCoroutine(_state.EndTurn());
     }
 }

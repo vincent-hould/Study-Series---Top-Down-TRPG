@@ -6,13 +6,11 @@ namespace TopDownTRPG
 {
     public class GridManager : MonoBehaviour
     {
-        [SerializeField]
-        private Tilemap GroundTilemap;
-        [SerializeField]
-        private Tilemap NonWalkableTilemap;
+        [SerializeField] private Tilemap GroundTilemap;
+        [SerializeField] private Tilemap NonWalkableTilemap;
 
         private ISelectableDetector _selectableDetector;
-
+        
         public static GridManager Instance { get; private set; }
 
         private void Awake()

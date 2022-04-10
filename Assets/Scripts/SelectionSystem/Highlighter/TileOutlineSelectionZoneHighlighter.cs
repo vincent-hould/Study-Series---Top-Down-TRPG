@@ -5,10 +5,8 @@ namespace TopDownTRPG
 {
     public class TileOutlineSelectionZoneHighlighter : MonoBehaviour, ISelectionZoneHighlighter
     {
-        [SerializeField]
-        private GameObject attackHighlightPrefab;
-        [SerializeField]
-        private GameObject moveHighlightPrefab;
+        [SerializeField] private GameObject attackHighlightPrefab;
+        [SerializeField] private GameObject moveHighlightPrefab;
 
         private List<GameObject> _highlights;
 
@@ -29,9 +27,7 @@ namespace TopDownTRPG
         {
             // TODO object pooling
             for (var i = 0; i < _highlights.Count; i++)
-            {
                 Destroy(_highlights[i]);
-            }
             _highlights.Clear();
         }
 

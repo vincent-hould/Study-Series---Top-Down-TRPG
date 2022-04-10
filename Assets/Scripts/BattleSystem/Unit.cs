@@ -7,19 +7,13 @@ namespace TopDownTRPG
         public delegate void MovementDone(Unit unit);
         public event MovementDone OnMovementDone;
 
+        [SerializeField] private bool Exhausted = false;
+        [SerializeField] private int Health = 100;
+        [SerializeField] private int Damage = 25;
+
         public int MovementRange = 4;
-
         public Faction Faction;
-
         public bool HasMoved = false;
-
-        [SerializeField]
-        private bool Exhausted = false;
-        [SerializeField]
-        private int Health = 100;
-        [SerializeField]
-        private int Damage = 25;
-
         private IMover _mover;
         private Animator _animator;
 
@@ -30,35 +24,24 @@ namespace TopDownTRPG
             BattleEventChannelSO.OnUnitRefreshed += OnRefresh;
         }
 
-        private void OnDestroy()
-        {
-            BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
-        }
+        private void OnDestroy() => BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
 
-        public void Destroy()
-        {
-            Destroy(gameObject);
-        }
+        public void Destroy() => Destroy(gameObject);
 
-        public void Die()
-        {
-
-            _animator.SetTrigger("die");
-        }
+        public void Die() => _animator.SetTrigger("die");
 
         public void ReceiveHit(int damage)
         {
             _animator.SetTrigger("receiveHit");
             Health = Mathf.Max(Health - damage, 0);
             if (Health == 0)
-            {
                 Die();
-            }
         }
 
         public void Attack(Unit opponent)
         {
-            if (Exhausted) return;
+            if (Exhausted)
+                return;
 
             _animator.SetBool("isSelected", false);
             _animator.SetTrigger("attack");
@@ -68,7 +51,8 @@ namespace TopDownTRPG
 
         public void Move(Vector3 position)
         {
-            if (Exhausted) return;
+            if (Exhausted)
+                return;
 
             _animator.SetBool("isSelected", false);
             _animator.SetBool("isWalking", true);
@@ -93,15 +77,10 @@ namespace TopDownTRPG
             _animator.SetBool("isWalking", false);
             HasMoved = true;
             if (OnMovementDone != null)
-            {
                 OnMovementDone(this);
-            }
         }
 
-        public void SetSelected()
-        {
-            _animator.SetBool("isSelected", true);
-        }
+        public void SetSelected() => _animator.SetBool("isSelected", true);
 
         public bool CanBeSelected()
         {

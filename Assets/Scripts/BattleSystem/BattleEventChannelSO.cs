@@ -19,33 +19,25 @@ namespace TopDownTRPG
         public static void RaiseUnitRefreshed()
         {
             if (OnUnitRefreshed != null)
-            {
                 OnUnitRefreshed();
-            }
         }
 
         public static void RaiseAttackRequested()
         {
             if (OnAttackRequested != null)
-            {
                 OnAttackRequested();
-            }
         }
 
         public static void RaiseMoveRequested()
         {
             if (OnMoveRequested != null)
-            {
                 OnMoveRequested();
-            }
         }
 
         public static void RaiseEndTurnRequested()
         {
             if (OnEndTurnRequested != null)
-            {
                 OnEndTurnRequested();
-            }
         }
     }
 }
