@@ -14,24 +14,33 @@ namespace TopDownTRPG
             SelectionEventChannelSO.OnSelectionRequested += InitCursor;
         }
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                Cursor.Disable();
+                Select(null);
+            }
+        }
+
         private void OnDestroy()
         {
             SelectionEventChannelSO.OnSelectionRequested -= InitCursor;
         }
 
-        public void InitCursor(CursorConstraint cursorConstraint)
+        public void Select(Selection selection)
         {
-            SelectionZoneHighlighter.Highlight(cursorConstraint);
-            Cursor.Enable(cursorConstraint);
-            Cursor.OnCursorSelection += OnCursorSelection;
+            SelectionZoneHighlighter.RemoveHighlight();
+            if (selection != null)
+                SelectionEventChannelSO.RaiseSelectionDone(selection);
+            else
+                SelectionEventChannelSO.RaiseSelectionCancelled();
         }
 
-        private void OnCursorSelection(Selection selection)
+        private void InitCursor(CursorConstraint cursorConstraint)
         {
-            Cursor.OnCursorSelection -= OnCursorSelection;
-            Cursor.Disable();
-            SelectionZoneHighlighter.RemoveHighlight();
-            SelectionEventChannelSO.RaiseSelectionDone(selection);
+            SelectionZoneHighlighter.Highlight(cursorConstraint);
+            Cursor.Init(this, cursorConstraint);
         }
     }
 }

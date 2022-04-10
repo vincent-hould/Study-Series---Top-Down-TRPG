@@ -68,6 +68,7 @@ namespace TopDownTRPG
         public void OnRefresh()
         {
             _animator.SetBool("isExhausted", false);
+            _animator.SetBool("isSelected", false);
             Exhausted = false;
             HasMoved = false;
         }
@@ -80,7 +81,7 @@ namespace TopDownTRPG
                 OnMovementDone(this);
         }
 
-        public void SetSelected() => _animator.SetBool("isSelected", true);
+        public void SetSelected(bool selected = true) => _animator.SetBool("isSelected", selected);
 
         public bool CanBeSelected()
         {

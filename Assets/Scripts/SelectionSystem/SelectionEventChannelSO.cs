@@ -8,6 +8,8 @@ namespace TopDownTRPG
         public static event SelectionRequested OnSelectionRequested;
         public delegate void SelectionDone(Selection selection);
         public static event SelectionDone OnSelectionDone;
+        public delegate void SelectionCancelled();
+        public static event SelectionCancelled OnSelectionCancelled;
 
         public static void RaiseSelectionRequest(CursorConstraint cursorConstraint = null)
         {
@@ -19,6 +21,14 @@ namespace TopDownTRPG
         {
             if (OnSelectionDone != null)
                 OnSelectionDone(selection);
+        }
+
+        public static void RaiseSelectionCancelled()
+        {
+            if (OnSelectionCancelled != null)
+            {
+                OnSelectionCancelled();
+            }
         }
     }
 }

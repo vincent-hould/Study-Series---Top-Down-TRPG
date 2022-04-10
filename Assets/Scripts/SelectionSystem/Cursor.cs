@@ -4,11 +4,9 @@ namespace TopDownTRPG
 {
     public class Cursor : MonoBehaviour
     {
-        public delegate void CursorSelection(Selection selection);
-        public event CursorSelection OnCursorSelection;
-
         private IMovementController _movementController;
         private IMover _mover;
+        private SelectionManager _selectionManager;
         private CursorConstraint _cursorConstraint;
 
         private void Awake() {
@@ -16,32 +14,38 @@ namespace TopDownTRPG
             _mover = GetComponent<IMover>();
         }
 
-        // Update is called once per frame
         private void Update()
         {
             Vector3 movement = _movementController.GetMovement(_cursorConstraint);
             _mover.Move(movement);
             if (Input.GetKeyDown(KeyCode.Z) || Input.GetKeyDown(KeyCode.Return))
-            {
-                ISelectable selectable = GridManager.Instance.FindSelectable(transform.position);
-                Selection selection = new Selection(transform.position, selectable);
-                if (!_cursorConstraint.CanSelect(selection))
-                    selection = new Selection(transform.position, null);
-                if (_cursorConstraint.CanSelect(selection) && OnCursorSelection != null)
-                    OnCursorSelection(selection);
-            }
+                Select();
         }
 
-        public void Enable(CursorConstraint cursorConstraint)
+        public void Init(SelectionManager selectionManager, CursorConstraint cursorConstraint)
         {
+            _selectionManager = selectionManager;
             _cursorConstraint = cursorConstraint;
             gameObject.SetActive(true);
         }
 
         public void Disable()
         {
+            _selectionManager = null;
             _cursorConstraint = null;
             gameObject.SetActive(false);
+        }
+
+        private void Select()
+        {
+            ISelectable selectable = GridManager.Instance.FindSelectable(transform.position);
+            Selection selection = new Selection(transform.position, selectable);
+            if (selectable != null && !_cursorConstraint.CanSelect(selection))
+                selection = new Selection(transform.position, null);
+            if (_cursorConstraint.CanSelect(selection))
+                _selectionManager.Select(selection);
+
+            Disable();
         }
     }
 }
