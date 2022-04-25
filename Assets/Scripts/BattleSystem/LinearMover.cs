@@ -23,7 +23,7 @@ namespace TopDownTRPG
             {
                 _isMoving = false;
                 _unit.OnMoveDone();
-            }    
+            }
         }
 
         public void Move(Vector3 destination)

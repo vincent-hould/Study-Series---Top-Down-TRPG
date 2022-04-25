@@ -16,7 +16,7 @@ namespace TopDownTRPG
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
+            if (Cursor.isActiveAndEnabled && (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape)))
             {
                 Cursor.Disable();
                 Select(null);

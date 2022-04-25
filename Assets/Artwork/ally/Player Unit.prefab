@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8539956655831710257}
   - component: {fileID: 8924468439584609682}
   - component: {fileID: 4265360530137282000}
-  - component: {fileID: 8353296028287067351}
+  - component: {fileID: 753028282127815750}
   - component: {fileID: 3435503272206031094}
   m_Layer: 0
   m_Name: Player Unit
@@ -149,11 +149,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33aa6ff8d0ea8645b9c979352455bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Slider: {fileID: 0}
   Exhausted: 0
   Health: 100
   Damage: 25
---- !u!114 &8353296028287067351
+  MovementRange: 4
+  Faction: {fileID: 11400000, guid: 342933ca4db45a044b1e6e6d3c059a9f, type: 2}
+  HasMoved: 0
+--- !u!114 &753028282127815750
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -162,7 +164,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8539956655831710260}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924de8fcf2dab9649a683f8a8d1b34fc, type: 3}
+  m_Script: {fileID: 11500000, guid: 41a25578b14d9ae42bca86b33cadec37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!222 &3435503272206031094

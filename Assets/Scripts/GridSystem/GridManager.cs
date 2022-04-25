@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using System.Linq;
 
 namespace TopDownTRPG
 {
@@ -9,9 +10,11 @@ namespace TopDownTRPG
         [SerializeField] private Tilemap GroundTilemap;
         [SerializeField] private Tilemap NonWalkableTilemap;
 
-        private ISelectableDetector _selectableDetector;
-        
         public static GridManager Instance { get; private set; }
+
+        private ISelectableDetector _selectableDetector;
+        private IPathfinder _pathfinder;
+        private Dictionary<Vector3, Node> grid;
 
         private void Awake()
         {
@@ -23,6 +26,24 @@ namespace TopDownTRPG
             Instance = this;
 
             _selectableDetector = GetComponent<ISelectableDetector>();
+            _pathfinder = GetComponent<IPathfinder>();
+            InitializeGrid();
+        }
+
+        private void InitializeGrid()
+        {
+            grid = new Dictionary<Vector3, Node>();
+            foreach (var position in GroundTilemap.cellBounds.allPositionsWithin)
+            {
+                if (!GroundTilemap.HasTile(position))
+                    continue;
+
+                bool isWalkable = NonWalkableTilemap.GetTile(NonWalkableTilemap.WorldToCell(position)) == null;
+                grid.Add(position, new Node(position, isWalkable));
+            }
+
+            foreach(var node in grid)
+                node.Value.CacheNeighbors(grid);
         }
 
         public ISelectable FindSelectable(Vector3 position)
@@ -32,9 +53,9 @@ namespace TopDownTRPG
 
         public bool IsWalkable(Vector3 position)
         {
-            return FindSelectable(position) == null &&
-                   NonWalkableTilemap.GetTile(NonWalkableTilemap.WorldToCell(position)) == null &&
-                   GroundTilemap.GetTile(GroundTilemap.WorldToCell(position)) != null;
+            Node node;
+            bool isValidPosition = grid.TryGetValue(position, out node);
+            return isValidPosition && node.Walkable && FindSelectable(position) == null;
         }
 
         public List<Vector3> GetTilesInRange(Vector3 origin, int range, bool walkableOnly = false)
@@ -58,6 +79,20 @@ namespace TopDownTRPG
             }
 
             return tiles;
+        }
+
+        public List<Vector3> FindPath(Vector3 origin, Vector3 destination)
+        {
+            Node originNode, destinationNode;
+            bool validOrigin = grid.TryGetValue(GroundTilemap.WorldToCell(origin), out originNode);
+            bool validDestination = grid.TryGetValue(GroundTilemap.WorldToCell(destination), out destinationNode);
+            if (!validOrigin || !validDestination)
+                return new List<Vector3>();
+
+            List<Node> nodes = _pathfinder.FindPath(originNode, destinationNode);
+            List<Vector3> pathTiles = nodes.Select(node => (GroundTilemap.CellToWorld(node.Position) + new Vector3(0.5f, 0.5f))).Reverse().ToList();
+
+            return pathTiles;
         }
     }
 }
