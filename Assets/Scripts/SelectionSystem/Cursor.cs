@@ -27,25 +27,24 @@ namespace TopDownTRPG
             _selectionManager = selectionManager;
             _cursorConstraint = cursorConstraint;
             gameObject.SetActive(true);
+            SelectionEventChannelSO.RaiseCursorEnabled(transform);
         }
 
         public void Disable()
         {
-            _selectionManager = null;
-            _cursorConstraint = null;
             gameObject.SetActive(false);
+            SelectionEventChannelSO.RaiseCursorDisabled();
         }
 
         private void Select()
         {
             ISelectable selectable = GridManager.Instance.FindSelectable(transform.position);
+            Disable();
             Selection selection = new Selection(transform.position, selectable);
             if (selectable != null && !_cursorConstraint.CanSelect(selection))
                 selection = new Selection(transform.position, null);
             if (_cursorConstraint.CanSelect(selection))
                 _selectionManager.Select(selection);
-
-            Disable();
         }
     }
 }

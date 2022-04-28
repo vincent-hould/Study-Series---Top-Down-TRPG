@@ -56,7 +56,11 @@ namespace TopDownTRPG
             {
                 _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
-                UIEventChannelSO.RaiseContextualMenuDisplayRequest(_selectedUnit.transform.position, _selectedUnit.CanBeSelected(), !_selectedUnit.HasMoved);
+                UIEventChannelSO.RaiseContextualMenuDisplayRequest(
+                    _selectedUnit.transform.position,
+                    _selectedUnit.CanBeSelected(),
+                    !_selectedUnit.HasMoved
+                );
             }
             else if (!_selectedUnit && !selectedUnit)
             {
@@ -69,7 +73,11 @@ namespace TopDownTRPG
             if (_actionSelected)
             {
                 _actionSelected = false;
-                UIEventChannelSO.RaiseContextualMenuDisplayRequest(_selectedUnit.transform.position, _selectedUnit.CanBeSelected(), !_selectedUnit.HasMoved);
+                UIEventChannelSO.RaiseContextualMenuDisplayRequest(
+                    _selectedUnit.transform.position,
+                    _selectedUnit.CanBeSelected(),
+                    !_selectedUnit.HasMoved
+                );
             }
             else
             {

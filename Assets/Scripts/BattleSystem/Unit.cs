@@ -56,6 +56,7 @@ namespace TopDownTRPG
 
             _animator.SetBool("isSelected", false);
             _animator.SetBool("isWalking", true);
+            BattleEventChannelSO.RaiseUnitMoveStarted(transform);
             _mover.Move(position);
         }
 
@@ -76,6 +77,7 @@ namespace TopDownTRPG
         public void OnMoveDone()
         {
             _animator.SetBool("isWalking", false);
+            BattleEventChannelSO.RaiseUnitMoveEnded();
             HasMoved = true;
             if (OnMovementDone != null)
                 OnMovementDone(this);
