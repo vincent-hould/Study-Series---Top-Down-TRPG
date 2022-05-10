@@ -1457,6 +1457,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackHighlightPrefab: {fileID: 5079023012275423580, guid: b57bcc97ef2353e4ca80dc730cb0f1d2, type: 3}
   moveHighlightPrefab: {fileID: 5079023012275423580, guid: b0b0e5990f9d53f4fb5e9427dada31bc, type: 3}
+--- !u!114 &365775818 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5028708070810197320, guid: 8a3d66b74fd954e42904d9e964dba061, type: 3}
+  m_PrefabInstance: {fileID: 6750753513578914002}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c33aa6ff8d0ea8645b9c979352455bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -5017,6 +5028,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1326804486}
   - component: {fileID: 1326804487}
+  - component: {fileID: 1326804488}
+  - component: {fileID: 1326804489}
+  - component: {fileID: 1326804490}
   m_Layer: 0
   m_Name: BattleSystem
   m_TagString: Untagged
@@ -5053,6 +5067,48 @@ MonoBehaviour:
   Factions:
   - {fileID: 11400000, guid: 342933ca4db45a044b1e6e6d3c059a9f, type: 2}
   - {fileID: 11400000, guid: 183ac8ee02dcba446999f34d76b6c068, type: 2}
+--- !u!114 &1326804488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326804485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c744223933256d340b23236a621bec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsWin: 1
+  Faction: {fileID: 11400000, guid: 342933ca4db45a044b1e6e6d3c059a9f, type: 2}
+--- !u!114 &1326804489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326804485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c744223933256d340b23236a621bec54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsWin: 0
+  Faction: {fileID: 11400000, guid: 183ac8ee02dcba446999f34d76b6c068, type: 2}
+--- !u!114 &1326804490
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1326804485}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e68f6038d7eda145ad2bf234b0babf1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  IsWin: 1
+  Unit: {fileID: 365775818}
 --- !u!1001 &1354627020
 PrefabInstance:
   m_ObjectHideFlags: 0

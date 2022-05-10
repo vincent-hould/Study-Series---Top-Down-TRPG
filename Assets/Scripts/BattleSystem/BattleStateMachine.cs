@@ -6,15 +6,19 @@ namespace TopDownTRPG
     public class BattleStateMachine : MonoBehaviour
     {
         [SerializeField] private List<Faction> Factions;
+        private EndCondition[] EndConditions;
 
         private BaseState _state;
         private int _factionIndex = -1;
+        private bool _onGoing = false;
 
         private void Awake()
         {
             BattleEventChannelSO.OnAttackRequested += Attack;
             BattleEventChannelSO.OnMoveRequested += Move;
             BattleEventChannelSO.OnEndTurnRequested += EndTurn;
+
+            EndConditions = GetComponents<EndCondition>();
         }
 
         private void OnDestroy()
@@ -26,7 +30,16 @@ namespace TopDownTRPG
 
         private void Start()
         {
+            _onGoing = true;
             SetState(new IntroState(this));
+        }
+
+        private void Update()
+        {
+            // TODO Update state machine for tarodev version with tick to move checking condition only
+            // in the right states instead of having this variable
+            if (_onGoing)
+                CheckEndConditions();
         }
 
         public void SetState(BaseState state)
@@ -47,6 +60,19 @@ namespace TopDownTRPG
             return nextFaction.Controllable 
                 ? new ControllableFactionTurnState(this, nextFaction) as BaseState
                 : new AIFactionTurnState(this, nextFaction) as BaseState;
+        }
+
+        private void CheckEndConditions()
+        {
+            foreach (EndCondition endCondition in EndConditions)
+            {
+                if (endCondition.IsConditionMet(this))
+                {
+                    _onGoing = false;
+                    SetState(new OutroState(this, endCondition.IsWin));
+                    break;
+                }
+            }
         }
 
         private void Attack() => StartCoroutine(_state.Attack());
