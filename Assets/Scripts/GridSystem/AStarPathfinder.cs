@@ -40,7 +40,7 @@ namespace TopDownTRPG
                     return path;
                 }
 
-                foreach (var neighbor in current.Neighbors.Where(t => t.Walkable && !processed.Contains(t)))
+                foreach (var neighbor in current.Neighbors.Where(t => t.IsWalkable() && !processed.Contains(t)))
                 {
                     var inSearch = toSearch.Contains(neighbor);
                     var costToNeighbor = current.G + current.GetDistance(neighbor);

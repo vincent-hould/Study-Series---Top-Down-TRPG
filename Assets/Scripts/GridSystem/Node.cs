@@ -10,19 +10,23 @@ namespace TopDownTRPG
             new Vector3(1, 0), new Vector3(-1, 0)
         };
 
-        public Vector3Int Position { get; private set; }
-        public bool Walkable { get; private set; }
+        public Vector3 Position { get; private set; }
         public List<Node> Neighbors { get; private set; }
+        public Unit Unit { get; set; }
         public Node Connection { get; set; }
         public float G { get; set; }
         public float H { get; set; }
         public float F => G + H;
 
-        public Node(Vector3Int position, bool walkable)
+        private  bool _walkable = false;
+
+        public Node(Vector3 position, bool walkable)
         {
             Position = position;
-            Walkable = walkable;
+            _walkable = walkable;
         }
+
+        public bool IsWalkable() => (_walkable && Unit == null);
 
         public float GetDistance(Node other) => Vector3.Distance(Position, other.Position);
 

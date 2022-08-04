@@ -44,12 +44,20 @@ namespace TopDownTRPG
                 OnUnitMoveStarted(unitTransform);
         }
 
-        public delegate void UnitMoveEnded();
+        public delegate void UnitMoveEnded(Unit unit);
         public static event UnitMoveEnded OnUnitMoveEnded;
-        public static void RaiseUnitMoveEnded()
+        public static void RaiseUnitMoveEnded(Unit unit)
         {
             if (OnUnitMoveEnded != null)
-                OnUnitMoveEnded();
+                OnUnitMoveEnded(unit);
+        }
+
+        public delegate void UnitSpawned(Unit unit);
+        public static event UnitSpawned OnUnitSpawned;
+        public static void RaiseUnitSpawned(Unit unit)
+        {
+            if (OnUnitSpawned != null)
+                OnUnitSpawned(unit);
         }
     }
 }

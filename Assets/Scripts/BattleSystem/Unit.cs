@@ -13,7 +13,10 @@ namespace TopDownTRPG
 
         public int MovementRange = 4;
         public Faction Faction;
+
         public bool HasMoved = false;
+        public Node CurrentNode { get; set; }
+
         private IMover _mover;
         private Animator _animator;
 
@@ -22,6 +25,11 @@ namespace TopDownTRPG
             _mover = GetComponent<IMover>();
             _animator = GetComponent<Animator>();
             BattleEventChannelSO.OnUnitRefreshed += OnRefresh;
+        }
+
+        private void Start()
+        {
+            BattleEventChannelSO.RaiseUnitSpawned(this);
         }
 
         private void OnDestroy() => BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
@@ -77,7 +85,7 @@ namespace TopDownTRPG
         public void OnMoveDone()
         {
             _animator.SetBool("isWalking", false);
-            BattleEventChannelSO.RaiseUnitMoveEnded();
+            BattleEventChannelSO.RaiseUnitMoveEnded(this);
             HasMoved = true;
             if (OnMovementDone != null)
                 OnMovementDone(this);

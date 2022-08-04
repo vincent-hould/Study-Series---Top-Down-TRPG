@@ -10,9 +10,25 @@ namespace TopDownTRPG
         [SerializeField] private Button MoveButton;
         [SerializeField] private Button EndTurnButton;
         [SerializeField] private float DistanceFromOrigin = 50f;
+        [SerializeField] private Text CursorPositionText;
+        [SerializeField] private Text CursorUnitText;
+        [SerializeField] private Text CursorWalkableText;
+        [SerializeField] private Cursor cursor;
 
         private bool attackButtonEnabled;
         private bool moveButtonEnabled;
+
+        private void Update()
+        {
+            if (cursor.isActiveAndEnabled)
+            {
+                var position = cursor.transform.position;
+                Unit unit = (Unit) GridManager.Instance.FindSelectable(position);
+                CursorPositionText.text = "Position: (" + position.x + ", " + position.y + ")";
+                CursorUnitText.text = "Unit: " + (unit ? unit.gameObject.name : "null");
+                CursorWalkableText.text = "Walkbable: " + GridManager.Instance.IsWalkable(position);
+            }
+        }
 
         public void DisplayMenu(Vector3 origin, bool canAttack, bool canMove)
         {

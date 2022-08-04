@@ -15,7 +15,7 @@ namespace TopDownTRPG
             SelectionEventChannelSO.OnCursorEnabled += SetFollowTarget;
             SelectionEventChannelSO.OnCursorDisabled += StopFollowing;
             BattleEventChannelSO.OnUnitMoveStarted += SetFollowTarget;
-            BattleEventChannelSO.OnUnitMoveEnded += StopFollowing;
+            BattleEventChannelSO.OnUnitMoveEnded += StopFollowingUnit;
         }
 
         private void OnDestroy()
@@ -23,7 +23,7 @@ namespace TopDownTRPG
             SelectionEventChannelSO.OnCursorEnabled -= SetFollowTarget;
             SelectionEventChannelSO.OnCursorDisabled -= StopFollowing;
             BattleEventChannelSO.OnUnitMoveStarted -= SetFollowTarget;
-            BattleEventChannelSO.OnUnitMoveEnded -= StopFollowing;
+            BattleEventChannelSO.OnUnitMoveEnded -= StopFollowingUnit;
         }
 
         private void Update()
@@ -49,6 +49,8 @@ namespace TopDownTRPG
             Helpers.Camera.transform.position = target.position;
             _target = target;
         }
+
+        private void StopFollowingUnit(Unit unit) => _target = null;
 
         private void StopFollowing() => _target = null;
     }
