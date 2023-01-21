@@ -39,12 +39,15 @@ namespace TopDownTRPG
         private void Select()
         {
             ISelectable selectable = GridManager.Instance.FindSelectable(transform.position);
-            Disable();
             Selection selection = new Selection(transform.position, selectable);
             if (selectable != null && !_cursorConstraint.CanSelect(selection))
                 selection = new Selection(transform.position, null);
+
             if (_cursorConstraint.CanSelect(selection))
+            {
+                Disable();
                 _selectionManager.Select(selection);
+            }
         }
     }
 }

@@ -1,9 +1,12 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace TopDownTRPG
 {
     public class Unit : MonoBehaviour, ISelectable
     {
+        public static List<Unit> SpawnedUnits = new List<Unit>();
+
         public delegate void MovementDone(Unit unit);
         public event MovementDone OnMovementDone;
 
@@ -29,10 +32,15 @@ namespace TopDownTRPG
 
         private void Start()
         {
+            SpawnedUnits.Add(this);
             BattleEventChannelSO.RaiseUnitSpawned(this);
         }
 
-        private void OnDestroy() => BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
+        private void OnDestroy()
+        {
+            BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
+            SpawnedUnits.Remove(this);
+        }
 
         public void Destroy() => Destroy(gameObject);
 
@@ -68,7 +76,7 @@ namespace TopDownTRPG
             _mover.Move(position);
         }
 
-        private void Exhaust()
+        public void Exhaust()
         {
             _animator.SetBool("isExhausted", true);
             Exhausted = true;
