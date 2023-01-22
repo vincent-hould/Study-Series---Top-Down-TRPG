@@ -13,7 +13,6 @@ namespace TopDownTRPG
 
         public void Execute()
         {
-            Debug.Log(_unit.gameObject.name + " was exhausted.");
             _unit.Exhaust();
         }
     }

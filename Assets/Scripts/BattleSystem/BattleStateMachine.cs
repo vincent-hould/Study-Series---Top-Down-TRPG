@@ -44,6 +44,9 @@ namespace TopDownTRPG
 
         public void SetState(BaseState state)
         {
+            if (!_onGoing)
+                return;
+
             if (_state != null)
                 StartCoroutine(_state.Leave());
 
@@ -54,8 +57,7 @@ namespace TopDownTRPG
 
         public BaseState GetNextFactionState()
         {
-            int factionCount = Factions.Count;
-            int nextIndex = ++_factionIndex < factionCount ? _factionIndex : 0;
+            int nextIndex = ++_factionIndex % Factions.Count;
             Faction nextFaction = Factions[nextIndex];
             return nextFaction.Controllable 
                 ? new ControllableFactionTurnState(this, nextFaction) as BaseState
@@ -68,8 +70,8 @@ namespace TopDownTRPG
             {
                 if (endCondition.IsConditionMet(this))
                 {
-                    _onGoing = false;
                     SetState(new OutroState(this, endCondition.IsWin));
+                    _onGoing = false;
                     break;
                 }
             }

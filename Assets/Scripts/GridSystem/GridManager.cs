@@ -29,6 +29,7 @@ namespace TopDownTRPG
             _pathfinder = GetComponent<IPathfinder>();
             BattleEventChannelSO.OnUnitMoveEnded += UpdateUnitPosition;
             BattleEventChannelSO.OnUnitSpawned += UpdateUnitPosition;
+            BattleEventChannelSO.OnUnitKilled += RemoveUnit;
             InitializeGrid();
         }
 
@@ -58,10 +59,17 @@ namespace TopDownTRPG
             unit.CurrentNode = node;
         }
 
+        public void RemoveUnit(Unit unit)
+        {
+            if (unit.CurrentNode != null)
+                unit.CurrentNode.Unit = null;
+        }
+
         public ISelectable FindSelectable(Vector3 position)
         {
-            var node = _grid[position];
-            return node?.Unit;
+            Node node;
+            bool found = _grid.TryGetValue(position, out node);
+            return found ? node?.Unit : null;
         }
 
         public bool IsWalkable(Vector3 position)

@@ -39,6 +39,7 @@ namespace TopDownTRPG
         private void OnDestroy()
         {
             BattleEventChannelSO.OnUnitRefreshed -= OnRefresh;
+            BattleEventChannelSO.RaiseUnitKilled(this);
             SpawnedUnits.Remove(this);
         }
 

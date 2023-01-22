@@ -59,5 +59,13 @@ namespace TopDownTRPG
             if (OnUnitSpawned != null)
                 OnUnitSpawned(unit);
         }
+
+        public delegate void UnitKilled(Unit unit);
+        public static event UnitKilled OnUnitKilled;
+        public static void RaiseUnitKilled(Unit unit)
+        {
+            if (OnUnitKilled != null)
+                OnUnitKilled(unit);
+        }
     }
 }
