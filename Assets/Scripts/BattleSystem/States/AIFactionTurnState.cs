@@ -19,13 +19,16 @@ namespace TopDownTRPG
             UIEventChannelSO.RaiseHeaderTextRequest(_faction.Name + " Turn", 2f);
             yield return new WaitForSeconds(2f);
 
+
             var units = GetFactionUnits();
             foreach (Unit unit in units)
             {
                 while(unit.CanBeSelected())
                 {
+                    DialogueEventChannelSO.RaiseDialogueStartRequested(unit.name, "Die!");
                     var action = ChooseAction(unit);
                     action.Execute();
+                    DialogueEventChannelSO.RaiseDialogueStartRequested(unit.name, "Die!");
                     yield return new WaitForSeconds(2f);
                 }
             }
