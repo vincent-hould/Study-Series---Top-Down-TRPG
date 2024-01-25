@@ -1,21 +1,37 @@
 using System.Collections;
-using System.Collections.Generic;
+using TopDownTRPG.Assets.Scripts.DialogueSystem;
+using TopDownTRPG.Assets.Scripts.Framework;
 using UnityEngine;
 
 namespace TopDownTRPG
 {
-    public class DialogueManager : MonoBehaviour
+    public class DialogueManager : BaseMonoSingleton<DialogueManager>
     {
-        private void Awake()
+        private TypewriterEffect TypewriterEffect;
+
+        protected override void Awake()
         {
-            DialogueEventChannelSO.OnDialogueStartRequested += StartDialogue;
+            base.Awake();
+            TypewriterEffect = GetComponent<TypewriterEffect>();
         }
 
-        public void StartDialogue(string actor, string text)
+        public Coroutine Execute(Dialogue dialogue)
         {
-            UIEventChannelSO.RaiseDialogueTextRequested(actor);
-            UIEventChannelSO.RaisePrintLineRequested(text);
-            // UIEventChannelSO.RaiseEndDialogueRequested();
+            return StartCoroutine(StartDialogue(dialogue));
+        }
+
+        public IEnumerator StartDialogue(Dialogue dialogue)
+        {
+            var dialogueBox = UIManager.Instance.GetDialogueBox();
+            dialogueBox.DisplayDialogueBox(dialogue.Actor);
+
+            foreach (var line in dialogue.Lines)
+            {
+                TypewriterEffect.Write(line, dialogueBox);
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+            }
+
+            dialogueBox.HideDialogueBox();
         }
     }
 }

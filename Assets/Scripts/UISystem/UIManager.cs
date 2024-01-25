@@ -1,17 +1,21 @@
 using System.Collections;
 using UnityEngine;
 using TMPro;
+using TopDownTRPG.Assets.Scripts.Framework;
+using TopDownTRPG.Assets.Scripts.UISystem;
 
 namespace TopDownTRPG
 {
-    public class UIManager : MonoBehaviour
+    public class UIManager : BaseMonoSingleton<UIManager>
     {
         [SerializeField] private TMP_Text HeaderText;
+        [SerializeField] private DialogueBox DialogueBox;
 
         private BattleMenuManager battleMenuManager;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             battleMenuManager = GetComponent<BattleMenuManager>();
             UIEventChannelSO.OnContextualMenuDisplayRequested += DisplayMenu;
             UIEventChannelSO.OnContextualMenuHideRequested += HideMenu;
@@ -43,6 +47,11 @@ namespace TopDownTRPG
         {
             yield return new WaitForSeconds(seconds);
             HeaderText.text = "";
+        }
+
+        public IDialogueBox GetDialogueBox()
+        {
+            return DialogueBox;
         }
     }
 }

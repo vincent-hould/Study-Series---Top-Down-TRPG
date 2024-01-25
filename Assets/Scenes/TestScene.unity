@@ -1582,7 +1582,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.5, y: 0, z: -25.798143}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 593297459}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1797,13 +1798,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 593297456}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.5, y: 0, z: -25.798143}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1820101605}
-  m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_Father: {fileID: 519420032}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &600811830
 GameObject:
@@ -2159,6 +2160,7 @@ GameObject:
   - component: {fileID: 1122909203}
   - component: {fileID: 1122909205}
   - component: {fileID: 1122909204}
+  - component: {fileID: 1122909206}
   m_Layer: 5
   m_Name: DialoguePanel
   m_TagString: Untagged
@@ -2225,6 +2227,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1122909202}
   m_CullTransparentMesh: 1
+--- !u!114 &1122909206
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1122909202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4ac006578f01b444b3c0b1ad007f028, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ActorTMP: {fileID: 1714123573}
+  TextTMP: {fileID: 1684600342}
 --- !u!1 &1205019029
 GameObject:
   m_ObjectHideFlags: 0
@@ -7775,6 +7791,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1834882645}
   - component: {fileID: 1834882646}
+  - component: {fileID: 1834882647}
   m_Layer: 0
   m_Name: DialogueSystem
   m_TagString: Untagged
@@ -7808,6 +7825,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06a39b59f8a9cec4f8e9525d51dbd685, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1834882647
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1834882644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3799b30fac4d0a44591f8221db61a56c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  writeSpeed: 15
 --- !u!1 &1837463718
 GameObject:
   m_ObjectHideFlags: 0
@@ -7818,7 +7848,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1837463719}
   - component: {fileID: 1837463721}
-  - component: {fileID: 1837463720}
   - component: {fileID: 1837463722}
   m_Layer: 0
   m_Name: GridSystem
@@ -7841,18 +7870,6 @@ Transform:
   m_Father: {fileID: 1307009534}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1837463720
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1837463718}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a42f8a2a04b19e4e87d8dfaba1a9eb5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1837463721
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8145,7 +8162,6 @@ GameObject:
   - component: {fileID: 2108098722}
   - component: {fileID: 2108098723}
   - component: {fileID: 2108098724}
-  - component: {fileID: 2108098725}
   m_Layer: 0
   m_Name: UISystem
   m_TagString: Untagged
@@ -8180,6 +8196,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   HeaderText: {fileID: 185671754}
+  DialogueBox: {fileID: 1122909206}
 --- !u!114 &2108098724
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8201,21 +8218,6 @@ MonoBehaviour:
   CursorUnitText: {fileID: 600811832}
   CursorWalkableText: {fileID: 1205019031}
   cursor: {fileID: 1905947952}
---- !u!114 &2108098725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2108098721}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1367b1cbb5cbfda42bfda1edfb848b3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  DialoguePanel: {fileID: 1122909202}
-  ActorTMP: {fileID: 1714123573}
-  TextTMP: {fileID: 1684600342}
 --- !u!1 &2140324551
 GameObject:
   m_ObjectHideFlags: 0

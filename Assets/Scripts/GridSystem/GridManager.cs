@@ -12,7 +12,6 @@ namespace TopDownTRPG
 
         public static GridManager Instance { get; private set; }
 
-        private ISelectableDetector _selectableDetector;
         private IPathfinder _pathfinder;
         private Dictionary<Vector3, Node> _grid;
 
@@ -25,7 +24,6 @@ namespace TopDownTRPG
             }
             Instance = this;
 
-            _selectableDetector = GetComponent<ISelectableDetector>();
             _pathfinder = GetComponent<IPathfinder>();
             BattleEventChannelSO.OnUnitMoveEnded += UpdateUnitPosition;
             BattleEventChannelSO.OnUnitSpawned += UpdateUnitPosition;

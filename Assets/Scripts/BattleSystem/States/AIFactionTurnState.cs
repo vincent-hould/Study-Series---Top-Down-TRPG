@@ -23,12 +23,12 @@ namespace TopDownTRPG
             var units = GetFactionUnits();
             foreach (Unit unit in units)
             {
-                while(unit.CanBeSelected())
+                while (unit.CanBeSelected())
                 {
-                    DialogueEventChannelSO.RaiseDialogueStartRequested(unit.name, "Die!");
+                    var dialogue = new Dialogue(unit.name, new List<string> { "Die!" });
+                    yield return DialogueManager.Instance.Execute(dialogue);
                     var action = ChooseAction(unit);
                     action.Execute();
-                    DialogueEventChannelSO.RaiseDialogueStartRequested(unit.name, "Die!");
                     yield return new WaitForSeconds(2f);
                 }
             }
