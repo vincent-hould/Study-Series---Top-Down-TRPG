@@ -8,13 +8,15 @@ namespace TopDownTRPG
         [SerializeField] private GameObject attackHighlightPrefab;
         [SerializeField] private GameObject moveHighlightPrefab;
 
-        private List<GameObject> _highlights;
+        private List<GameObject> _highlights = new List<GameObject>();
 
         public void Highlight(CursorConstraint cursorConstraint)
         {
+            if (!cursorConstraint.AreAllowedTilesHighlighted())
+                return;
+            
             List<Vector3> tiles = cursorConstraint.GetAllowedTiles();
             GameObject highlightPrefab = GetHighlightPrefab(cursorConstraint);
-            _highlights = new List<GameObject>();
             foreach(var tile in tiles)
             {
                 var highlight = Instantiate(highlightPrefab, tile, Quaternion.identity);

@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
+using UnityEditor;
 
 namespace TopDownTRPG
 {
@@ -14,6 +15,7 @@ namespace TopDownTRPG
 
         private IPathfinder _pathfinder;
         private Dictionary<Vector3, Node> _grid;
+        private Vector3 _gridOffset = new Vector3(-0.5f, -0.5f);
 
         private void Awake()
         {
@@ -40,7 +42,8 @@ namespace TopDownTRPG
                     continue;
 
                 bool isWalkable = NonWalkableTilemap.GetTile(position) == null;
-                _grid.Add(position, new Node(position, isWalkable));
+                Vector3 worldPos = GroundTilemap.CellToWorld(position) - _gridOffset;
+                _grid.Add(worldPos, new Node(worldPos, isWalkable));
             }
 
             foreach(var node in _grid)
@@ -100,6 +103,16 @@ namespace TopDownTRPG
             return tiles;
         }
 
+        public List<Vector3> GetAllTiles()
+        {
+            return _grid.Keys.ToList();
+        }
+
+        public bool IsInGrid(Vector3 position)
+        {
+            return _grid.TryGetValue(position, out _);
+        }
+
         public List<Vector3> FindPath(Vector3 origin, Vector3 destination)
         {
             Node originNode, destinationNode;
@@ -112,6 +125,19 @@ namespace TopDownTRPG
             List<Vector3> pathTiles = nodes.Select(node => node.Position).Reverse().ToList();
 
             return pathTiles;
+        }
+
+        private void OnDrawGizmos()
+        {
+            foreach (var pos in GroundTilemap.cellBounds.allPositionsWithin)
+            {
+                if (GroundTilemap.HasTile(pos))
+                {
+                    Vector3 worldPos = GroundTilemap.CellToWorld(pos) - _gridOffset;
+                    Gizmos.DrawWireCube(worldPos, Vector3.one);
+                    Handles.Label(worldPos, $"({worldPos.x}, {worldPos.y})");
+                }
+            }
         }
     }
 }

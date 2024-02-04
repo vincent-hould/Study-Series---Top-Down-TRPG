@@ -21,11 +21,15 @@ namespace TopDownTRPG
             return _attacker.Faction.CanAttack(target.Faction);
         }
 
+        public override bool AreAllowedTilesHighlighted()
+        {
+            return true;
+        }
+
         public override Vector3 GetNextTile(Vector3 position, Vector3 direction)
         {
             var destination = position + direction;
-            var distance = Vector3.Distance(_attacker.transform.position, destination);
-            return distance <= 1 ? destination : position;
+            return GetAllowedTiles().Contains(destination) ? destination: position;
         }
 
         public override List<Vector3> GetAllowedTiles()

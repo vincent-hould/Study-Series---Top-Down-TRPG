@@ -21,9 +21,15 @@ namespace TopDownTRPG
             return target.Faction == _faction;
         }
 
+        public override Vector3 GetNextTile(Vector3 position, Vector3 direction)
+        {
+            var destination = position + direction;
+            return GridManager.Instance.IsInGrid(destination) ? destination : position;
+        }
+
         public override List<Vector3> GetAllowedTiles()
         {
-            return new List<Vector3>();
+            return GridManager.Instance.GetAllTiles();
         }
     }
 }

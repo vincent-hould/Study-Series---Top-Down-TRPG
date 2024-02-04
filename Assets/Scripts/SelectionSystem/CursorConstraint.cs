@@ -10,10 +10,12 @@ namespace TopDownTRPG
             return selection.Selectable == null || selection.Selectable.CanBeSelected();
         }
 
-        public virtual Vector3 GetNextTile(Vector3 position, Vector3 direction)
+        public virtual bool AreAllowedTilesHighlighted()
         {
-            return position + direction;
+            return false;
         }
+
+        public abstract Vector3 GetNextTile(Vector3 position, Vector3 direction);
 
         public abstract List<Vector3> GetAllowedTiles();
     }
