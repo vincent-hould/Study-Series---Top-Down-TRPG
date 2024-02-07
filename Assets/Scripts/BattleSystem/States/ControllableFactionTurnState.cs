@@ -1,5 +1,5 @@
 using System.Collections;
-using UnityEngine;
+using System.Collections.Generic;
 
 namespace TopDownTRPG
 {
@@ -19,8 +19,8 @@ namespace TopDownTRPG
             _selectedUnit = null;
             SelectionEventChannelSO.OnSelectionDone += OnSelectionDone;
             SelectionEventChannelSO.OnSelectionCancelled += OnSelectionCancelled;
-            UIEventChannelSO.RaiseHeaderTextRequest(_faction.Name + " Turn", 2f);
-            yield return new WaitForSeconds(2f);
+            var header = UIManager.Instance.GetHeader();
+            yield return header.Display(_faction.Name + " Turn", 2f);
 
             SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
             yield break;
@@ -51,21 +51,31 @@ namespace TopDownTRPG
             {
                 _selectedUnit.OnMovementDone += OnMovementDone;
                 _selectedUnit.Move(selection.Position);
-            }
+            }   
             else if (!_selectedUnit && selectedUnit && selectedUnit.Faction == _faction)
             {
                 _selectedUnit = selectedUnit;
                 _selectedUnit.SetSelected();
-                UIEventChannelSO.RaiseContextualMenuDisplayRequest(
-                    _selectedUnit.transform.position,
-                    _selectedUnit.CanBeSelected(),
-                    _selectedUnit.CanBeSelected() && !_selectedUnit.HasMoved
-                );
+                var actionMenu = UIManager.Instance.GetActionMenu();
+                actionMenu.PromptForAction(_selectedUnit.transform.position, BuildActionMenuItems());
             }
             else if (!_selectedUnit && !selectedUnit)
             {
-                UIEventChannelSO.RaiseContextualMenuDisplayRequest(selection.Position, false, false);
+                var actionMenu = UIManager.Instance.GetActionMenu();
+                actionMenu.PromptForAction(selection.Position, BuildActionMenuItems());
             }
+        }
+
+        private List<ActionMenuItem> BuildActionMenuItems()
+        {
+            var actionList = new List<ActionMenuItem>
+            { 
+                new ActionMenuItem("Attack",  () => { Attack(); }, _selectedUnit && _selectedUnit.CanBeSelected()),
+                new ActionMenuItem("Move",  () => { Move(); }, _selectedUnit && _selectedUnit.CanBeSelected() && !_selectedUnit.HasMoved),
+                new ActionMenuItem("End Turn",  () => { EndTurn(); })
+            };
+           
+            return actionList;
         }
 
         private void OnSelectionCancelled()
@@ -73,17 +83,13 @@ namespace TopDownTRPG
             if (_actionSelected)
             {
                 _actionSelected = false;
-                UIEventChannelSO.RaiseContextualMenuDisplayRequest(
-                    _selectedUnit.transform.position,
-                    _selectedUnit.CanBeSelected(),
-                    _selectedUnit.CanBeSelected() && !_selectedUnit.HasMoved
-                );
+                var actionMenu = UIManager.Instance.GetActionMenu();
+                actionMenu.PromptForAction(_selectedUnit.transform.position, BuildActionMenuItems());
             }
             else
             {
                 _selectedUnit.SetSelected(false);
                 _selectedUnit = null;
-                UIEventChannelSO.RaiseContextualMenuHideRequest();
                 SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
             }
         }
@@ -96,28 +102,22 @@ namespace TopDownTRPG
             SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
         }
 
-        public override IEnumerator Attack()
+        private void Attack()
         {
             _actionSelected = true;
             SelectionEventChannelSO.RaiseSelectionRequest(new AttackCursorConstraint(_selectedUnit));
-            UIEventChannelSO.RaiseContextualMenuHideRequest();
-            yield break;
         }
 
-        public override IEnumerator Move()
+        private void Move()
         {
             _actionSelected = true;
             SelectionEventChannelSO.RaiseSelectionRequest(new MoveCursorConstraint(_selectedUnit));
-            UIEventChannelSO.RaiseContextualMenuHideRequest();
-            yield break;
         }
 
-        public override IEnumerator EndTurn()
+        private void EndTurn()
         {
             _actionSelected = false;
             _stateMachine.SetState(_stateMachine.GetNextFactionState());
-            UIEventChannelSO.RaiseContextualMenuHideRequest();
-            yield break;
         }
     }
 }

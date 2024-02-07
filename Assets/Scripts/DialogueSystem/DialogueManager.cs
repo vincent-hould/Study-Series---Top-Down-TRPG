@@ -15,7 +15,7 @@ namespace TopDownTRPG
             TypewriterEffect = GetComponent<TypewriterEffect>();
         }
 
-        public Coroutine Execute(Dialogue dialogue)
+        public Coroutine Play(Dialogue dialogue)
         {
             return StartCoroutine(StartDialogue(dialogue));
         }
@@ -24,11 +24,12 @@ namespace TopDownTRPG
         {
             var dialogueBox = UIManager.Instance.GetDialogueBox();
             dialogueBox.DisplayDialogueBox(dialogue.Actor);
+            yield return new WaitForSeconds(0.25f);
 
             foreach (var line in dialogue.Lines)
             {
                 TypewriterEffect.Write(line, dialogueBox);
-                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
+                yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Return));
             }
 
             dialogueBox.HideDialogueBox();

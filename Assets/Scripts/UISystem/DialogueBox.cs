@@ -15,6 +15,7 @@ namespace TopDownTRPG
         public void DisplayDialogueBox(string actor)
         {
             ActorTMP.text = actor;
+            TextTMP.text = "";
             gameObject.SetActive(true);
         }
 

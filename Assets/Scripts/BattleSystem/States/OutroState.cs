@@ -16,8 +16,8 @@ namespace TopDownTRPG
         public override IEnumerator Enter()
         {
             var text = _isWin ? "Victory !" : "Defeat...";
-            UIEventChannelSO.RaiseHeaderTextRequest(text, 20f);
-            yield break;
+            var header = UIManager.Instance.GetHeader();
+            yield return header.Display(text, 20f);
         }
     }
 }

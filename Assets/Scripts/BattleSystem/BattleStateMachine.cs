@@ -14,18 +14,7 @@ namespace TopDownTRPG
 
         private void Awake()
         {
-            BattleEventChannelSO.OnAttackRequested += Attack;
-            BattleEventChannelSO.OnMoveRequested += Move;
-            BattleEventChannelSO.OnEndTurnRequested += EndTurn;
-
             EndConditions = GetComponents<EndCondition>();
-        }
-
-        private void OnDestroy()
-        {
-            BattleEventChannelSO.OnAttackRequested -= Attack;
-            BattleEventChannelSO.OnMoveRequested -= Move;
-            BattleEventChannelSO.OnEndTurnRequested -= EndTurn;
         }
 
         private void Start()
@@ -70,17 +59,12 @@ namespace TopDownTRPG
             {
                 if (endCondition.IsConditionMet(this))
                 {
+                    BattleEventChannelSO.RaiseBattleEnded();
                     SetState(new OutroState(this, endCondition.IsWin));
                     _onGoing = false;
                     break;
                 }
             }
         }
-
-        private void Attack() => StartCoroutine(_state.Attack());
-
-        private void Move() => StartCoroutine(_state.Move());
-
-        private void EndTurn() => StartCoroutine(_state.EndTurn());
     }
 }

@@ -16,9 +16,8 @@ namespace TopDownTRPG
 
         public override IEnumerator Enter()
         {
-            UIEventChannelSO.RaiseHeaderTextRequest(_faction.Name + " Turn", 2f);
-            yield return new WaitForSeconds(2f);
-
+            var header = UIManager.Instance.GetHeader();
+            yield return header.Display(_faction.Name + " Turn", 2f);
 
             var units = GetFactionUnits();
             foreach (Unit unit in units)
@@ -26,7 +25,7 @@ namespace TopDownTRPG
                 while (unit.CanBeSelected())
                 {
                     var dialogue = new Dialogue(unit.name, new List<string> { "Die!" });
-                    yield return DialogueManager.Instance.Execute(dialogue);
+                    yield return DialogueManager.Instance.Play(dialogue);
                     var action = ChooseAction(unit);
                     action.Execute();
                     yield return new WaitForSeconds(2f);

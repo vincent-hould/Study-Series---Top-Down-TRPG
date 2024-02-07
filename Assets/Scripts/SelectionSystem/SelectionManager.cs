@@ -12,13 +12,14 @@ namespace TopDownTRPG
         {
             SelectionZoneHighlighter = GetComponent<ISelectionZoneHighlighter>();
             SelectionEventChannelSO.OnSelectionRequested += InitCursor;
+            BattleEventChannelSO.OnBattleEnded += DisableCursor;
         }
 
         private void Update()
         {
             if (Cursor.isActiveAndEnabled && (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape)))
             {
-                Cursor.Disable();
+                DisableCursor();
                 Select(null);
             }
         }
@@ -41,6 +42,11 @@ namespace TopDownTRPG
         {
             SelectionZoneHighlighter.Highlight(cursorConstraint);
             Cursor.Init(this, cursorConstraint);
+        }
+
+        private void DisableCursor()
+        {
+            Cursor.Disable();
         }
     }
 }
