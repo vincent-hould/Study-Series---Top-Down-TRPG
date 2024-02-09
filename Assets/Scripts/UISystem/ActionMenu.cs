@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -25,6 +24,8 @@ namespace TopDownTRPG
                 var gameObject = Instantiate(ButtonPrefab, transform);
                 var button = gameObject.GetComponent<Button>();
                 button.interactable = choice.Enabled;
+                // TODO Might refactor into coroutine
+                // see: https://discussions.unity.com/t/wait-for-button-response-in-coroutine/225851/3
                 button.onClick.AddListener(() => {
                     HideMenu();
                     choice.Callback();
@@ -37,16 +38,16 @@ namespace TopDownTRPG
             }
         }
 
+        public void HideMenu()
+        {
+            gameObject.SetActive(false);
+            DestroyButtons();
+        }
+
         private void ShowMenu(Vector3 origin)
         {
             transform.position = GetMenuPosition(origin);
             gameObject.SetActive(true);
-        }
-
-        private void HideMenu()
-        {
-            gameObject.SetActive(false);
-            DestroyButtons();
         }
 
         private void DestroyButtons()

@@ -3,29 +3,22 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 using System.Linq;
 using UnityEditor;
+using TopDownTRPG.Assets.Scripts.Framework;
 
 namespace TopDownTRPG
 {
-    public class GridManager : MonoBehaviour
+    public class GridManager : BaseMonoSingleton<GridManager>
     {
         [SerializeField] private Tilemap GroundTilemap;
         [SerializeField] private Tilemap NonWalkableTilemap;
-
-        public static GridManager Instance { get; private set; }
+        [SerializeField] private Vector3 GridOffset = new Vector3(-0.5f, -0.5f);
 
         private IPathfinder _pathfinder;
         private Dictionary<Vector3, Node> _grid;
-        private Vector3 _gridOffset = new Vector3(-0.5f, -0.5f);
 
-        private void Awake()
+        protected override void Awake()
         {
-            if (Instance != null && Instance != this)
-            {
-                Destroy(this);
-                return;
-            }
-            Instance = this;
-
+            base.Awake();
             _pathfinder = GetComponent<IPathfinder>();
             BattleEventChannelSO.OnUnitMoveEnded += UpdateUnitPosition;
             BattleEventChannelSO.OnUnitSpawned += UpdateUnitPosition;
@@ -42,7 +35,7 @@ namespace TopDownTRPG
                     continue;
 
                 bool isWalkable = NonWalkableTilemap.GetTile(position) == null;
-                Vector3 worldPos = GroundTilemap.CellToWorld(position) - _gridOffset;
+                Vector3 worldPos = GroundTilemap.CellToWorld(position) - GridOffset;
                 _grid.Add(worldPos, new Node(worldPos, isWalkable));
             }
 
@@ -133,7 +126,7 @@ namespace TopDownTRPG
             {
                 if (GroundTilemap.HasTile(pos))
                 {
-                    Vector3 worldPos = GroundTilemap.CellToWorld(pos) - _gridOffset;
+                    Vector3 worldPos = GroundTilemap.CellToWorld(pos) - GridOffset;
                     Gizmos.DrawWireCube(worldPos, Vector3.one);
                     Handles.Label(worldPos, $"({worldPos.x}, {worldPos.y})");
                 }

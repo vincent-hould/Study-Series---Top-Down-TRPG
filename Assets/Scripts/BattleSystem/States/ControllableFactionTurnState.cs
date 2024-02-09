@@ -5,8 +5,8 @@ namespace TopDownTRPG
 {
     public class ControllableFactionTurnState : BaseState
     {
+        private readonly Faction _faction;
         private Unit _selectedUnit;
-        private Faction _faction;
         private bool _actionSelected = false;
 
         public ControllableFactionTurnState(BattleStateMachine stateMachine, Faction faction) : base(stateMachine)
