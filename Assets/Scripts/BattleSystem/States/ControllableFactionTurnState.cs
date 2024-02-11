@@ -22,7 +22,7 @@ namespace TopDownTRPG
             var header = UIManager.Instance.GetHeader();
             yield return header.Display(_faction.Name + " Turn", 2f);
 
-            SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
+            SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
             yield break;
         }
 
@@ -45,7 +45,7 @@ namespace TopDownTRPG
                 _selectedUnit.Attack(selectedUnit);
                 _selectedUnit = null;
                 _actionSelected = false;
-                SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
+                SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
             }
             else if (_selectedUnit && !selectedUnit)
             {
@@ -90,7 +90,7 @@ namespace TopDownTRPG
             {
                 _selectedUnit.SetSelected(false);
                 _selectedUnit = null;
-                SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
+                SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
             }
         }
 
@@ -99,19 +99,19 @@ namespace TopDownTRPG
             _actionSelected = false;
             unit.OnMovementDone -= OnMovementDone;
             _selectedUnit = null;
-            SelectionEventChannelSO.RaiseSelectionRequest(new UnitSelectionCursorConstraint(_faction));
+            SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
         }
 
         private void Attack()
         {
             _actionSelected = true;
-            SelectionEventChannelSO.RaiseSelectionRequest(new AttackCursorConstraint(_selectedUnit));
+            SelectionManager.Instance.PromptForSelection(new AttackCursorConstraint(_selectedUnit));
         }
 
         private void Move()
         {
             _actionSelected = true;
-            SelectionEventChannelSO.RaiseSelectionRequest(new MoveCursorConstraint(_selectedUnit));
+            SelectionManager.Instance.PromptForSelection(new MoveCursorConstraint(_selectedUnit));
         }
 
         private void EndTurn()

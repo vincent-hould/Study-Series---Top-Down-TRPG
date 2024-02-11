@@ -1,32 +1,19 @@
+using TopDownTRPG.Assets.Scripts.Framework;
 using UnityEngine;
 
 namespace TopDownTRPG
 {
-    public class SelectionManager : MonoBehaviour
+    public class SelectionManager : BaseMonoSingleton<SelectionManager>
     {
         [SerializeField] private Cursor Cursor;
 
         public ISelectionZoneHighlighter SelectionZoneHighlighter;
 
-        private void Awake()
+        protected override void Awake()
         {
+            base.Awake();
             SelectionZoneHighlighter = GetComponent<ISelectionZoneHighlighter>();
-            SelectionEventChannelSO.OnSelectionRequested += InitCursor;
             BattleEventChannelSO.OnBattleEnded += DisableCursor;
-        }
-
-        private void Update()
-        {
-            if (Cursor.isActiveAndEnabled && (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape)))
-            {
-                DisableCursor();
-                Select(null);
-            }
-        }
-
-        private void OnDestroy()
-        {
-            SelectionEventChannelSO.OnSelectionRequested -= InitCursor;
         }
 
         public void Select(Selection selection)
@@ -38,15 +25,15 @@ namespace TopDownTRPG
                 SelectionEventChannelSO.RaiseSelectionCancelled();
         }
 
-        private void InitCursor(CursorConstraint cursorConstraint)
+        public void PromptForSelection(CursorConstraint cursorConstraint)
         {
             SelectionZoneHighlighter.Highlight(cursorConstraint);
-            Cursor.Init(this, cursorConstraint);
+            Cursor.Show(this, cursorConstraint);
         }
 
         private void DisableCursor()
         {
-            Cursor.Disable();
+            Cursor.Hide();
         }
     }
 }

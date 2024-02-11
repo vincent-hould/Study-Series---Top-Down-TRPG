@@ -8,48 +8,42 @@ namespace TopDownTRPG
         public static event UnitRefreshed OnUnitRefreshed;
         public static void RaiseUnitRefreshed()
         {
-            if (OnUnitRefreshed != null)
-                OnUnitRefreshed();
+            OnUnitRefreshed?.Invoke();
         }
 
         public delegate void UnitMoveStarted(Transform unitTransform);
         public static event UnitMoveStarted OnUnitMoveStarted;
         public static void RaiseUnitMoveStarted(Transform unitTransform)
         {
-            if (OnUnitMoveStarted != null)
-                OnUnitMoveStarted(unitTransform);
+            OnUnitMoveStarted?.Invoke(unitTransform);
         }
 
         public delegate void UnitMoveEnded(Unit unit);
         public static event UnitMoveEnded OnUnitMoveEnded;
         public static void RaiseUnitMoveEnded(Unit unit)
         {
-            if (OnUnitMoveEnded != null)
-                OnUnitMoveEnded(unit);
+            OnUnitMoveEnded?.Invoke(unit);
         }
 
         public delegate void UnitSpawned(Unit unit);
         public static event UnitSpawned OnUnitSpawned;
         public static void RaiseUnitSpawned(Unit unit)
         {
-            if (OnUnitSpawned != null)
-                OnUnitSpawned(unit);
+            OnUnitSpawned?.Invoke(unit);
         }
 
         public delegate void UnitKilled(Unit unit);
         public static event UnitKilled OnUnitKilled;
         public static void RaiseUnitKilled(Unit unit)
         {
-            if (OnUnitKilled != null)
-                OnUnitKilled(unit);
+            OnUnitKilled?.Invoke(unit);
         }
 
         public delegate void BattleEnded();
         public static event BattleEnded OnBattleEnded;
         public static void RaiseBattleEnded()
         {
-            if (OnBattleEnded != null)
-                OnBattleEnded();
+            OnBattleEnded?.Invoke();
         }
     }
 }
