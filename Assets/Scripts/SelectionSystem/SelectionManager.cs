@@ -16,19 +16,19 @@ namespace TopDownTRPG
             BattleEventChannelSO.OnBattleEnded += DisableCursor;
         }
 
-        public void Select(Selection selection)
+        public void PromptForSelection(CursorConstraint cursorConstraint)
+        {
+            _selectionZoneHighlighter.Highlight(cursorConstraint);
+            Cursor.Show(cursorConstraint, ProcessSelection);
+        }
+
+        private void ProcessSelection(Selection selection)
         {
             _selectionZoneHighlighter.RemoveHighlight();
             if (selection != null)
                 SelectionEventChannelSO.RaiseSelectionDone(selection);
             else
                 SelectionEventChannelSO.RaiseSelectionCancelled();
-        }
-
-        public void PromptForSelection(CursorConstraint cursorConstraint)
-        {
-            _selectionZoneHighlighter.Highlight(cursorConstraint);
-            Cursor.Show(this, cursorConstraint);
         }
 
         private void DisableCursor()

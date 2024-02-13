@@ -15,7 +15,8 @@ namespace TopDownTRPG
         public override bool CanSelect(Selection selection)
         {
             return selection.Selectable == null &&
-                   Vector3.Distance(selection.Position, _movedUnit.transform.position) <= _movedUnit.MovementRange;
+                GridManager.Instance.IsWalkable(selection.Position) &&
+                Vector3.Distance(selection.Position, _movedUnit.transform.position) <= _movedUnit.MovementRange;
         }
 
         public override bool AreAllowedTilesHighlighted()
@@ -26,6 +27,7 @@ namespace TopDownTRPG
         public override Vector3 GetNextTile(Vector3 position, Vector3 direction)
         {
             var destination = position + direction;
+            // It is by design that we can move through non-walkables. This is to make navigation easier, we just won't be able to select those tiles
             return GridManager.Instance.IsInGrid(destination) ? destination : position;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace TopDownTRPG
@@ -6,8 +7,8 @@ namespace TopDownTRPG
     {
         private IMovementController _movementController;
         private IMover _mover;
-        private SelectionManager _selectionManager;
         private CursorConstraint _cursorConstraint;
+        private Action<Selection> _selectionCallback;
 
         private void Awake() {
             _movementController = GetComponent<IMovementController>();
@@ -26,9 +27,9 @@ namespace TopDownTRPG
                 Select(false);
         }
 
-        public void Show(SelectionManager selectionManager, CursorConstraint cursorConstraint)
+        public void Show(CursorConstraint cursorConstraint, Action<Selection> selectionCallback)
         {
-            _selectionManager = selectionManager;
+            _selectionCallback = selectionCallback;
             _cursorConstraint = cursorConstraint;
             gameObject.SetActive(true);
             SelectionEventChannelSO.RaiseCursorEnabled(transform);
@@ -64,7 +65,7 @@ namespace TopDownTRPG
             }
 
             Hide();
-            _selectionManager.Select(selection);
+            _selectionCallback(selection);
         }
     }
 }
