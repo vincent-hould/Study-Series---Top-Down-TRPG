@@ -29,21 +29,24 @@ namespace TopDownTRPG
 
         private void BuildButtons(List<ActionMenuItem> choices)
         {
-            var choiceIndex = 0;
+            var isFirstInteractable = true;
             foreach (var choice in choices)
             {
                 var gameObject = Instantiate(ButtonPrefab, transform);
                 var button = gameObject.GetComponent<Button>();
-                button.interactable = choice.Enabled;
                 button.onClick.AddListener(() => {
                     HideMenu();
                     choice.Callback();
                 });
+                button.interactable = choice.Enabled;
+                if (choice.Enabled && isFirstInteractable)
+                {
+                    button.Select();
+                    isFirstInteractable = false;
+                }
                 var text = gameObject.GetComponentInChildren<TMP_Text>();
                 text.text = choice.Label;
-                if (choiceIndex == 0)
-                    button.Select();
-                choiceIndex++;
+                
             }
         }
 
