@@ -15,6 +15,8 @@ namespace TopDownTRPG
             return false;
         }
 
+        public abstract bool CanBeCancelled();
+
         public abstract Vector3 GetNextTile(Vector3 position, Vector3 direction);
 
         public abstract List<Vector3> GetAllowedTiles();

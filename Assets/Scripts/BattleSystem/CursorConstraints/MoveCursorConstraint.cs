@@ -33,5 +33,10 @@ namespace TopDownTRPG
         {
             return GridManager.Instance.GetTilesInRange(_movedUnit.transform.position, _movedUnit.MovementRange, true);
         }
+
+        public override bool CanBeCancelled()
+        {
+            return true;
+        }
     }
 }

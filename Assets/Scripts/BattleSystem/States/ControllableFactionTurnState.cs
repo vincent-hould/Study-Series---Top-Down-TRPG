@@ -16,20 +16,22 @@ namespace TopDownTRPG
 
         public override IEnumerator Enter()
         {
-            _selectedUnit = null;
             SelectionEventChannelSO.OnSelectionDone += OnSelectionDone;
             SelectionEventChannelSO.OnSelectionCancelled += OnSelectionCancelled;
+            UIEventChannelSO.OnActionMenuCancelled += OnSelectionCancelled;
             var header = UIManager.Instance.GetHeader();
             yield return header.Display(_faction.Name + " Turn", 2f);
 
             SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
-            yield break;
         }
 
         public override IEnumerator Leave()
         {
+            _selectedUnit = null;
+            _actionSelected = false;
             SelectionEventChannelSO.OnSelectionDone -= OnSelectionDone;
             SelectionEventChannelSO.OnSelectionCancelled -= OnSelectionCancelled;
+            UIEventChannelSO.OnActionMenuCancelled -= OnSelectionCancelled;
             BattleEventChannelSO.RaiseUnitRefreshed();
             yield break;
         }
@@ -70,8 +72,8 @@ namespace TopDownTRPG
         {
             var actionList = new List<ActionMenuItem>
             { 
-                new ActionMenuItem("Attack",  () => { Attack(); }, _selectedUnit && _selectedUnit.CanBeSelected()),
-                new ActionMenuItem("Move",  () => { Move(); }, _selectedUnit && _selectedUnit.CanBeSelected() && !_selectedUnit.HasMoved),
+                new ActionMenuItem("Attack",  () => { SelectAttackAction(); }, _selectedUnit && _selectedUnit.CanBeSelected()),
+                new ActionMenuItem("Move",  () => { SelectMoveAction(); }, _selectedUnit && _selectedUnit.CanBeSelected() && !_selectedUnit.HasMoved),
                 new ActionMenuItem("End Turn",  () => { EndTurn(); })
             };
            
@@ -88,8 +90,12 @@ namespace TopDownTRPG
             }
             else
             {
-                _selectedUnit.SetSelected(false);
-                _selectedUnit = null;
+                if (_selectedUnit)
+                {
+                    _selectedUnit.SetSelected(false);
+                    _selectedUnit = null;
+                }
+
                 SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
             }
         }
@@ -102,13 +108,13 @@ namespace TopDownTRPG
             SelectionManager.Instance.PromptForSelection(new UnitSelectionCursorConstraint(_faction));
         }
 
-        private void Attack()
+        private void SelectAttackAction()
         {
             _actionSelected = true;
             SelectionManager.Instance.PromptForSelection(new AttackCursorConstraint(_selectedUnit));
         }
 
-        private void Move()
+        private void SelectMoveAction()
         {
             _actionSelected = true;
             SelectionManager.Instance.PromptForSelection(new MoveCursorConstraint(_selectedUnit));

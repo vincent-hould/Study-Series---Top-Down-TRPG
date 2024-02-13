@@ -10,10 +10,21 @@ namespace TopDownTRPG
         [SerializeField] private GameObject ButtonPrefab;
         [SerializeField] private float DistanceFromOrigin = 50f;
 
+        private void Update()
+        {
+            if (Input.GetKeyDown(KeyCode.X) || Input.GetKeyDown(KeyCode.Escape))
+            {
+                HideMenu();
+                UIEventChannelSO.RaiseActionMenuCancelled();
+            }
+        }
+
         public void PromptForAction(Vector3 origin, List<ActionMenuItem> choices)
         {
-            BuildButtons(choices);
+            // It's important that the menu (parent game object) is activated before the buttons are created
+            // or else the call of button.Select() won't be propagated up the hierarchy to the event system
             ShowMenu(origin);
+            BuildButtons(choices);
         }
 
         private void BuildButtons(List<ActionMenuItem> choices)
@@ -24,8 +35,6 @@ namespace TopDownTRPG
                 var gameObject = Instantiate(ButtonPrefab, transform);
                 var button = gameObject.GetComponent<Button>();
                 button.interactable = choice.Enabled;
-                // TODO Might refactor into coroutine
-                // see: https://discussions.unity.com/t/wait-for-button-response-in-coroutine/225851/3
                 button.onClick.AddListener(() => {
                     HideMenu();
                     choice.Callback();
@@ -38,7 +47,7 @@ namespace TopDownTRPG
             }
         }
 
-        public void HideMenu()
+        private void HideMenu()
         {
             gameObject.SetActive(false);
             DestroyButtons();

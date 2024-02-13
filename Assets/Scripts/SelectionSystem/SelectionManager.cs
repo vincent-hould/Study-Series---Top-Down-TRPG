@@ -7,18 +7,18 @@ namespace TopDownTRPG
     {
         [SerializeField] private Cursor Cursor;
 
-        public ISelectionZoneHighlighter SelectionZoneHighlighter;
+        private ISelectionZoneHighlighter _selectionZoneHighlighter;
 
         protected override void Awake()
         {
             base.Awake();
-            SelectionZoneHighlighter = GetComponent<ISelectionZoneHighlighter>();
+            _selectionZoneHighlighter = GetComponent<ISelectionZoneHighlighter>();
             BattleEventChannelSO.OnBattleEnded += DisableCursor;
         }
 
         public void Select(Selection selection)
         {
-            SelectionZoneHighlighter.RemoveHighlight();
+            _selectionZoneHighlighter.RemoveHighlight();
             if (selection != null)
                 SelectionEventChannelSO.RaiseSelectionDone(selection);
             else
@@ -27,7 +27,7 @@ namespace TopDownTRPG
 
         public void PromptForSelection(CursorConstraint cursorConstraint)
         {
-            SelectionZoneHighlighter.Highlight(cursorConstraint);
+            _selectionZoneHighlighter.Highlight(cursorConstraint);
             Cursor.Show(this, cursorConstraint);
         }
 

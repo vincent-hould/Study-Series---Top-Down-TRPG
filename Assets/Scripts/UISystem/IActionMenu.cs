@@ -7,7 +7,5 @@ namespace TopDownTRPG
     public interface IActionMenu
     {
         public void PromptForAction(Vector3 origin, List<ActionMenuItem> choices);
-
-        public void HideMenu();
     }
 }

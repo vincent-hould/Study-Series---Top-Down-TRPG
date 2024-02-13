@@ -48,11 +48,19 @@ namespace TopDownTRPG
                 ISelectable selectable = GridManager.Instance.FindSelectable(transform.position);
                 selection = new Selection(transform.position, selectable);
                 if (!_cursorConstraint.CanSelect(selection))
-                    return;
+                {
+                    selection = new Selection(selection.Position, null);
+                    if (!_cursorConstraint.CanSelect(selection))
+                        return;
+                }
+            }
+            else if (_cursorConstraint.CanBeCancelled())
+            {
+                selection = null;
             }
             else
             {
-                selection = null;
+                return;
             }
 
             Hide();

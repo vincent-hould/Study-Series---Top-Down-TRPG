@@ -43,7 +43,7 @@ namespace TopDownTRPG
                 node.Value.CacheNeighbors(_grid);
         }
 
-        public void UpdateUnitPosition(Unit unit)
+        private void UpdateUnitPosition(Unit unit)
         {
             if (unit.CurrentNode != null)
                 unit.CurrentNode.Unit = null;
@@ -53,7 +53,7 @@ namespace TopDownTRPG
             unit.CurrentNode = node;
         }
 
-        public void RemoveUnit(Unit unit)
+        private void RemoveUnit(Unit unit)
         {
             if (unit.CurrentNode != null)
                 unit.CurrentNode.Unit = null;
@@ -61,15 +61,13 @@ namespace TopDownTRPG
 
         public ISelectable FindSelectable(Vector3 position)
         {
-            Node node;
-            bool found = _grid.TryGetValue(position, out node);
+            bool found = _grid.TryGetValue(position, out Node node);
             return found ? node?.Unit : null;
         }
 
         public bool IsWalkable(Vector3 position)
         {
-            Node node;
-            bool isValidPosition = _grid.TryGetValue(position, out node);
+            bool isValidPosition = _grid.TryGetValue(position, out Node node);
             return isValidPosition && node.IsWalkable();
         }
 
@@ -108,9 +106,8 @@ namespace TopDownTRPG
 
         public List<Vector3> FindPath(Vector3 origin, Vector3 destination)
         {
-            Node originNode, destinationNode;
-            bool validOrigin = _grid.TryGetValue(origin, out originNode);
-            bool validDestination = _grid.TryGetValue(destination, out destinationNode);
+            bool validOrigin = _grid.TryGetValue(origin, out Node originNode);
+            bool validDestination = _grid.TryGetValue(destination, out Node destinationNode);
             if (!validOrigin || !validDestination)
                 return new List<Vector3>();
 

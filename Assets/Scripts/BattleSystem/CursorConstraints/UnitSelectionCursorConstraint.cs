@@ -31,5 +31,10 @@ namespace TopDownTRPG
         {
             return GridManager.Instance.GetAllTiles();
         }
+
+        public override bool CanBeCancelled()
+        {
+            return false;
+        }
     }
 }
