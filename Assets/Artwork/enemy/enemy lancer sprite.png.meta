@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -304,6 +305,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      enemy lancer sprite_2: 329770646943331126
+      enemy lancer sprite_3: -3014219233823816266
+      enemy lancer sprite_7: 3533970443407636068
+      enemy lancer sprite_6: 4819933720036834580
+      enemy lancer sprite_0: 3776822988961991875
+      enemy lancer sprite_5: -4100228734976920727
+      enemy lancer sprite_4: 3347559217437746990
+      enemy lancer sprite_1: 6801130835533845109
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0

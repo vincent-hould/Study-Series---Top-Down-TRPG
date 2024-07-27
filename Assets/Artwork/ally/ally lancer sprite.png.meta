@@ -48,6 +48,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -304,6 +305,15 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      ally lancer sprite_7: -4446121533892960147
+      ally lancer sprite_0: -6491461309584986412
+      ally lancer sprite_5: 8849595431412978787
+      ally lancer sprite_1: 2979917339749174118
+      ally lancer sprite_6: 7388030083033072838
+      ally lancer sprite_3: -9016697843356391693
+      ally lancer sprite_4: -891498161714637092
+      ally lancer sprite_2: 7841793298025987587
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
