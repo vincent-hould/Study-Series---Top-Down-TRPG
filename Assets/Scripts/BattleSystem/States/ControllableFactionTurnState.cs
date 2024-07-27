@@ -73,7 +73,7 @@ namespace TopDownTRPG
             var actionList = new List<ActionMenuItem>
             { 
                 new ActionMenuItem("Attack",  () => { SelectAttackAction(); }, _selectedUnit && _selectedUnit.CanBeSelected()),
-                new ActionMenuItem("Move",  () => { SelectMoveAction(); }, _selectedUnit && _selectedUnit.CanBeSelected() && !_selectedUnit.HasMoved),
+                new ActionMenuItem("Move",  () => { SelectMoveAction(); }, _selectedUnit && _selectedUnit.CanMove()),
                 new ActionMenuItem("End Turn",  () => { EndTurn(); })
             };
            
@@ -111,13 +111,13 @@ namespace TopDownTRPG
         private void SelectAttackAction()
         {
             _actionSelected = true;
-            SelectionManager.Instance.PromptForSelection(new AttackCursorConstraint(_selectedUnit));
+            SelectionManager.Instance.PromptForSelection(_selectedUnit.GetAttackCursorConstraint());
         }
 
         private void SelectMoveAction()
         {
             _actionSelected = true;
-            SelectionManager.Instance.PromptForSelection(new MoveCursorConstraint(_selectedUnit));
+            SelectionManager.Instance.PromptForSelection(_selectedUnit.GetMoveCursorConstraint());
         }
 
         private void EndTurn()

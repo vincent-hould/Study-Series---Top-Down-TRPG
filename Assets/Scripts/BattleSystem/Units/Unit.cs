@@ -10,16 +10,19 @@ namespace TopDownTRPG
         public delegate void MovementDone(Unit unit);
         public event MovementDone OnMovementDone;
 
-        [SerializeField] private bool Exhausted = false;
-        [SerializeField] private int Health = 100;
-        [SerializeField] private int Damage = 25;
-
-        public int MovementRange = 4;
         public Faction Faction;
+        public UnitType Type;
+        public UnitTrait Trait;
+        public UnitTrait CaptainTrait;
 
-        public bool HasMoved = false;
         public Node CurrentNode { get; set; }
+        public int MovementRange => Type.MovementRange;
+        public int Health { get; private set; }
+        public int Damage => Type.Damage;
+        public bool IsCaptain => CaptainTrait != null;
 
+        private bool _exhausted = false;
+        private bool _hasMoved = false;
         private IMover _mover;
         private Animator _animator;
 
@@ -32,6 +35,7 @@ namespace TopDownTRPG
 
         private void Start()
         {
+            Health = Type.MaxHealth;
             SpawnedUnits.Add(this);
             BattleEventChannelSO.RaiseUnitSpawned(this);
         }
@@ -43,32 +47,38 @@ namespace TopDownTRPG
             SpawnedUnits.Remove(this);
         }
 
-        public void Destroy() => Destroy(gameObject);
+        public bool CanBeSelected() => !_exhausted;
 
-        public void Die() => _animator.SetTrigger("die");
+        public bool CanMove() => CanBeSelected() && !_hasMoved;
+
+        public void SetSelected(bool selected = true) => _animator.SetBool("isSelected", selected);
+
+        public void Destroy() => Destroy(gameObject);
 
         public void ReceiveHit(int damage)
         {
             _animator.SetTrigger("receiveHit");
-            Health = Mathf.Max(Health - damage, 0);
+            Health = Mathf.Max(Type.MaxHealth - damage, 0);
             if (Health == 0)
                 Die();
         }
 
+        private void Die() => _animator.SetTrigger("die");
+
         public void Attack(Unit opponent)
         {
-            if (Exhausted)
+            if (_exhausted)
                 return;
 
             _animator.SetBool("isSelected", false);
             _animator.SetTrigger("attack");
-            opponent.ReceiveHit(Damage);
+            opponent.ReceiveHit(Type.Damage);
             Exhaust();
         }
 
         public void Move(Vector3 position)
         {
-            if (Exhausted)
+            if (_exhausted)
                 return;
 
             _animator.SetBool("isSelected", false);
@@ -80,31 +90,33 @@ namespace TopDownTRPG
         public void Exhaust()
         {
             _animator.SetBool("isExhausted", true);
-            Exhausted = true;
+            _exhausted = true;
         }
 
         public void OnRefresh()
         {
             _animator.SetBool("isExhausted", false);
             _animator.SetBool("isSelected", false);
-            Exhausted = false;
-            HasMoved = false;
+            _exhausted = false;
+            _hasMoved = false;
         }
 
         public void OnMoveDone()
         {
             _animator.SetBool("isWalking", false);
             BattleEventChannelSO.RaiseUnitMoveEnded(this);
-            HasMoved = true;
-            if (OnMovementDone != null)
-                OnMovementDone(this);
+            _hasMoved = true;
+            OnMovementDone?.Invoke(this);
         }
 
-        public void SetSelected(bool selected = true) => _animator.SetBool("isSelected", selected);
-
-        public bool CanBeSelected()
+        public CursorConstraint GetAttackCursorConstraint()
         {
-            return !Exhausted;
+            return Type.GetAttackCursorConstraint(this);
+        }
+
+        public CursorConstraint GetMoveCursorConstraint()
+        {
+            return Type.GetMoveCursorConstraint(this);
         }
     }
 }

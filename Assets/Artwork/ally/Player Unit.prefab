@@ -149,12 +149,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c33aa6ff8d0ea8645b9c979352455bc6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Exhausted: 0
-  Health: 100
-  Damage: 25
-  MovementRange: 4
+  Type: {fileID: 11400000, guid: e64759d58c3d6784288cc992e88c6cc7, type: 2}
   Faction: {fileID: 11400000, guid: 342933ca4db45a044b1e6e6d3c059a9f, type: 2}
-  HasMoved: 0
 --- !u!114 &753028282127815750
 MonoBehaviour:
   m_ObjectHideFlags: 0
